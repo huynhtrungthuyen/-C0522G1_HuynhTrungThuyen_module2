@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class NumberToString {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhập số nguyên dương có tối đa 3 chữ số: ");
+        System.out.println("Input number: ");
         int number = scanner.nextInt();
 
         if (number < 10) {
