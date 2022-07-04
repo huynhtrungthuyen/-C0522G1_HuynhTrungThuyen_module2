@@ -174,7 +174,7 @@ public class NumberToString {
                     System.out.println("out of ability!");
             }
 
-            int newNumber = number - (number/100)*100;
+            int newNumber = number % 100;
             if (newNumber != 0) {
                 if (newNumber < 10) {
                     switch (newNumber) {
