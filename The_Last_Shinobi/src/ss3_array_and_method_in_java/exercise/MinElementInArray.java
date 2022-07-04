@@ -9,7 +9,7 @@ public class MinElementInArray {
         System.out.println("Nhập số phần tử của mảng: ");
         int size = scanner.nextInt();
         int[] array = new int[size];
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.printf("array[%d] = ", i);
             array[i] = scanner.nextInt();
         }
@@ -17,8 +17,8 @@ public class MinElementInArray {
         System.out.println(Arrays.toString(array));
 
         int min = array[0];
-        for (int element: array) {
-            if (element<min) {
+        for (int element : array) {
+            if (element < min) {
                 min = element;
             }
         }
