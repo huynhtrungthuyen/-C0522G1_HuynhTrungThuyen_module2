@@ -3,7 +3,8 @@ package ss4_class_object_in_java.exercise.stop_watch;
 import java.util.Date;
 
 public class StopWatch {
-    private Date startTime, endTime;
+    private Date startTime;
+    private Date endTime;
 
     public StopWatch() {
         this.startTime = new Date();
