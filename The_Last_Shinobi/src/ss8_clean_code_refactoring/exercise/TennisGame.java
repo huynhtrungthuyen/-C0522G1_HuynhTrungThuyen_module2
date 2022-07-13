@@ -1,6 +1,11 @@
 package ss8_clean_code_refactoring.exercise;
 
 public class TennisGame {
+    public static final int LOVE = 0;
+    public static final int FIFTEEN = 1;
+    public static final int THIRTY = 2;
+    public static final int FOURTY = 3;
+
     public static String getScore(String firstPlayerName, String secondPlayerName, int firstPlayerScore, int secondPlayerScore) {
         String score = "";
         int tempScore = 0;
@@ -22,13 +27,13 @@ public class TennisGame {
      */
     public static String result(int firstPlayerScore) {
         switch (firstPlayerScore) {
-            case 0:
+            case LOVE:
                 return "Love-All";
-            case 1:
+            case FIFTEEN:
                 return "Fifteen-All";
-            case 2:
+            case THIRTY:
                 return "Thirty-All";
-            case 3:
+            case FOURTY:
                 return "Forty-All";
             default:
                 return "Deuce";
@@ -74,16 +79,16 @@ public class TennisGame {
                 tempScore = secondPlayerScore;
             }
             switch (tempScore) {
-                case 0:
+                case LOVE:
                     score += "Love";
                     break;
-                case 1:
+                case FIFTEEN:
                     score += "Fifteen";
                     break;
-                case 2:
+                case THIRTY:
                     score += "Thirty";
                     break;
-                case 3:
+                case FOURTY:
                     score += "Forty";
                     break;
             }

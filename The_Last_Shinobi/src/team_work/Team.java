@@ -1,4 +1,4 @@
-package ss1_Introduction_to_java.team;
+package team_work;
 
 public class Team {
     public static void main(String[] args) {
