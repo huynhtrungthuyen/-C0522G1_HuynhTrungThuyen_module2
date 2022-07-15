@@ -21,13 +21,13 @@ public class TeacherController {
             int choose = Integer.parseInt(scanner.nextLine());
             switch (choose) {
                 case 1:
-                    iTeacherService.addTeacher();
+                    iTeacherService.add();
                     break;
                 case 2:
-                    iTeacherService.removeTeacher();
+                    iTeacherService.remove();
                     break;
                 case 3:
-                    iTeacherService.displayAllTeacher();
+                    iTeacherService.displayAll();
                     break;
                 case 4:
                     return;

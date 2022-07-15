@@ -1,9 +1,8 @@
 package exercise.service;
 
-public interface IStudentService {
-    void addStudent();
 
-    void removeStudent();
+import exercise.model.Student;
 
-    void displayAllStudent();
+public interface IStudentService extends IPersonService<Student> {
+
 }

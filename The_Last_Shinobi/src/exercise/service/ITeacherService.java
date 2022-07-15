@@ -1,10 +1,8 @@
 package exercise.service;
 
-public interface ITeacherService {
-    void addTeacher();
+import exercise.model.Teacher;
 
-    void removeTeacher();
+public interface ITeacherService extends IPersonService<Teacher> {
 
-    void displayAllTeacher();
 }
 

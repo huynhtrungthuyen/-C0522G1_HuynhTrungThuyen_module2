@@ -14,14 +14,14 @@ public class TeacherService implements ITeacherService {
 
 
     @Override
-    public void addTeacher() {
+    public void add() {
         Teacher teacher = infoTeacher();
         teacherList.add(teacher);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
-    public void removeTeacher() {
+    public void remove() {
         System.out.println("Mời bạn nhập id cần xóa: ");
         int idRemove = Integer.parseInt(scanner.nextLine());
         boolean isExist = false;
@@ -47,7 +47,7 @@ public class TeacherService implements ITeacherService {
     }
 
     @Override
-    public void displayAllTeacher() {
+    public void displayAll() {
         for (Teacher teacher : teacherList) {
             System.out.println(teacher);
         }

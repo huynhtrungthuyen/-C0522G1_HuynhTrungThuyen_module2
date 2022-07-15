@@ -10,6 +10,7 @@ public class ArrayOfIntegersReserve {
 
         System.out.println("Nhập số phần tử của mảng: ");
         int length = scanner.nextInt();
+
         for (int i = 0; i < length; i++) {
             System.out.printf("array[%d] = ", i);
             array.push(scanner.nextInt());
@@ -19,12 +20,12 @@ public class ArrayOfIntegersReserve {
 
         Stack<Integer> arrayReverse = new Stack<>();
 
-        for (int item : array) {
-            arrayReverse.push(item);
+        while(!array.isEmpty()) {
+            arrayReverse.push(array.pop());
         }
 
-        for (int i = 0; i < array.size(); i++) {
-            array.set(i, arrayReverse.pop());
+        for (int item : arrayReverse) {
+            array.push(item);
         }
 
         System.out.println("Sau khi đảo ngược: array = " + array);

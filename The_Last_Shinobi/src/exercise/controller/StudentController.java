@@ -19,13 +19,13 @@ public class StudentController {
             int choose = Integer.parseInt(scanner.nextLine());
             switch (choose) {
                 case 1:
-                    iStudentService.addStudent();
+                    iStudentService.add();
                     break;
                 case 2:
-                    iStudentService.removeStudent();
+                    iStudentService.remove();
                     break;
                 case 3:
-                    iStudentService.displayAllStudent();
+                    iStudentService.displayAll();
                     break;
                 case 4:
                     return;

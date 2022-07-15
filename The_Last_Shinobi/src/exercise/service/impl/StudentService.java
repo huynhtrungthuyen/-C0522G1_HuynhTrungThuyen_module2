@@ -13,14 +13,14 @@ public class StudentService implements IStudentService {
     private static Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void addStudent() {
+    public void add() {
         Student student = infoStudent();
         studentList.add(student);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
-    public void removeStudent() {
+    public void remove() {
         System.out.println("Mời bạn nhập id cần xóa: ");
         int idRemove = Integer.parseInt(scanner.nextLine());
         boolean isExist = false;
@@ -47,7 +47,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void displayAllStudent() {
+    public void displayAll() {
         for (Student student : studentList) {
             System.out.println(student);
         }
