@@ -7,9 +7,17 @@ public class Palindrome {
         Stack<String> stringStack = new Stack<>();
         Queue<String> stringQueue = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhập chuỗi bất kì: ");
-        String string = scanner.nextLine();
+        String string;
+        boolean isInvalid;
 
+        do {
+            System.out.println("Nhập chuỗi bất kì có ít nhất 2 kí tự: ");
+            string = scanner.nextLine();
+            isInvalid = string.length() < 2;
+            if (isInvalid) {
+                System.out.println("Vui lòng nhập lại!");
+            }
+        } while (isInvalid);
         String[] stringArr = string.split("");
         System.out.println(Arrays.toString(stringArr));
 
@@ -17,6 +25,7 @@ public class Palindrome {
             stringStack.push(str.toLowerCase());
             stringQueue.add(str.toLowerCase());
         }
+
 
         String str1 = "";
         String str2 = "";
