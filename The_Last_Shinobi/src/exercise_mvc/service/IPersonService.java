@@ -7,5 +7,7 @@ public interface IPersonService<E> {
 
     void displayAll();
 
-    void find();
+    void findId();
+
+    void findName();
 }

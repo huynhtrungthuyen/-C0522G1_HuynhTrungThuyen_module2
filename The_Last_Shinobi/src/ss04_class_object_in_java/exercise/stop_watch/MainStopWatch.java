@@ -2,7 +2,7 @@ package ss04_class_object_in_java.exercise.stop_watch;
 
 public class MainStopWatch {
     public static void main(String[] args) {
-        double[] arr = new double[10000];
+        double[] arr = new double[50000];
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = Math.random();

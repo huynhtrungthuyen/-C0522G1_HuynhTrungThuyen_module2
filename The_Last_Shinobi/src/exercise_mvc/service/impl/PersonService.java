@@ -16,6 +16,10 @@ public class PersonService implements IPersonService {
     }
 
     @Override
-    public void find() {
+    public void findId() {
+    }
+
+    @Override
+    public void findName() {
     }
 }

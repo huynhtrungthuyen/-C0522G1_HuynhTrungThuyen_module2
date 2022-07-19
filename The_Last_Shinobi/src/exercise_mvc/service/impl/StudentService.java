@@ -11,6 +11,13 @@ public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
+    static {
+        studentList.add(new Student(1, "Đặng Thị Thủy Tiên", "20/03/2000", 2, "C0522G1", 7.5));
+        studentList.add(new Student(2, "Hồ Hải Học", "10/12/1995", 1, "C0522G1", 7));
+        studentList.add(new Student(3, "Võ Văn Tý", "01/02/2001", 1, "C0522G1", 1.5));
+        studentList.add(new Student(4, "Lê Đại Lợi", "14/02/1997", 3, "C0522G1", 9));
+    }
+
     @Override
     public void add() {
         Student student = infoStudent();
@@ -25,7 +32,7 @@ public class StudentService implements IStudentService {
         boolean isExist = false;
 
         for (Student student : studentList) {
-            if(student.getId() == idRemove) {
+            if (student.getId() == idRemove) {
                 System.out.println("Bạn có chắc muốn xóa hay không? \n" +
                         "1. Có \n" +
                         "2. Không");
@@ -40,7 +47,7 @@ public class StudentService implements IStudentService {
             }
         }
 
-        if(!isExist) {
+        if (!isExist) {
             System.out.println("Không tìm thấy!");
         }
     }
@@ -53,42 +60,34 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void find() {
-        int choose;
+    public void findId() {
+        System.out.println("Mời bạn nhập id cần tìm kiếm: ");
+        int idFind = Integer.parseInt(scanner.nextLine());
         boolean isExist = false;
 
-        do {
-            System.out.println("Tìm kiểm theo: \n" +
-                    "1. Id.\n" +
-                    "2. Tên.");
-            choose = Integer.parseInt(scanner.nextLine());
-
-            if (choose != 1 && choose != 2) {
-                System.out.println("Nhập lại!");
-            }
-        } while (choose != 1 && choose != 2);
-
-        if (choose == 1) {
-            System.out.println("Mời bạn nhập id cần tìm kiếm: ");
-            int idFind = Integer.parseInt(scanner.nextLine());
-
-            for (Student student : studentList) {
-                if (student.getId() == idFind) {
-                    System.out.println(student);
-                    isExist = true;
-                    break;
-                }
+        for (Student student : studentList) {
+            if (student.getId() == idFind) {
+                System.out.println(student);
+                isExist = true;
+                break;
             }
         }
-        else {
-            System.out.println("Mời bạn nhập tên cần tìm kiếm: ");
-            String nameFind = scanner.nextLine();
 
-            for (Student student : studentList) {
-                if (student.getName().contains(nameFind)) {
-                    System.out.println(student);
-                    isExist = true;
-                }
+        if (!isExist) {
+            System.out.println("Không tìm thấy!");
+        }
+    }
+
+    @Override
+    public void findName() {
+        System.out.println("Mời bạn nhập tên cần tìm kiếm: ");
+        String nameFind = scanner.nextLine();
+        boolean isExist = false;
+
+        for (Student student : studentList) {
+            if (student.getName().toLowerCase().contains(nameFind.toLowerCase())) {
+                System.out.println(student);
+                isExist = true;
             }
         }
 
@@ -107,7 +106,7 @@ public class StudentService implements IStudentService {
         System.out.print("Nhập ngày sinh: ");
         String dateOfBirth = scanner.nextLine();
 
-        System.out.print("Nhập giới tính:\n" +
+        System.out.println("Nhập giới tính:\n" +
                 "1. Nam.\n" +
                 "2. Nữ.\n" +
                 "Khác. LGBT.");
