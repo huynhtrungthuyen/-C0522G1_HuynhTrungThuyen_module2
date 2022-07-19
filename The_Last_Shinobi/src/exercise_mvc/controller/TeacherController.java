@@ -15,7 +15,8 @@ public class TeacherController {
                     "1. Thêm mới giáo viên. \n" +
                     "2. Xóa giáo viên. \n" +
                     "3. Xem danh sách giáo viên. \n" +
-                    "4. Quay về menu chính.");
+                    "4. Tìm kiếm giáo viên. \n" +
+                    "5. Quay về menu chính.");
             int choose = Integer.parseInt(scanner.nextLine());
             switch (choose) {
                 case 1:
@@ -28,6 +29,9 @@ public class TeacherController {
                     iTeacherService.displayAll();
                     break;
                 case 4:
+                    iTeacherService.find();
+                    break;
+                case 5:
                     return;
             }
         } while (true);

@@ -52,6 +52,51 @@ public class StudentService implements IStudentService {
         }
     }
 
+    @Override
+    public void find() {
+        int choose;
+        boolean isExist = false;
+
+        do {
+            System.out.println("Tìm kiểm theo: \n" +
+                    "1. Id.\n" +
+                    "2. Tên.");
+            choose = Integer.parseInt(scanner.nextLine());
+
+            if (choose != 1 && choose != 2) {
+                System.out.println("Nhập lại!");
+            }
+        } while (choose != 1 && choose != 2);
+
+        if (choose == 1) {
+            System.out.println("Mời bạn nhập id cần tìm kiếm: ");
+            int idFind = Integer.parseInt(scanner.nextLine());
+
+            for (Student student : studentList) {
+                if (student.getId() == idFind) {
+                    System.out.println(student);
+                    isExist = true;
+                    break;
+                }
+            }
+        }
+        else {
+            System.out.println("Mời bạn nhập tên cần tìm kiếm: ");
+            String nameFind = scanner.nextLine();
+
+            for (Student student : studentList) {
+                if (student.getName().contains(nameFind)) {
+                    System.out.println(student);
+                    isExist = true;
+                }
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Không tìm thấy!");
+        }
+    }
+
     public static Student infoStudent() {
         System.out.print("Nhập id: ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -62,7 +107,10 @@ public class StudentService implements IStudentService {
         System.out.print("Nhập ngày sinh: ");
         String dateOfBirth = scanner.nextLine();
 
-        System.out.print("Nhập giới tính (nhập số 1 nếu là Nam): ");
+        System.out.print("Nhập giới tính:\n" +
+                "1. Nam.\n" +
+                "2. Nữ.\n" +
+                "Khác. LGBT.");
         int gender = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Nhập tên lớp: ");
@@ -71,7 +119,6 @@ public class StudentService implements IStudentService {
         System.out.print("Nhập điểm: ");
         double point = Double.parseDouble(scanner.nextLine());
 
-        Student student = new Student(id, name, dateOfBirth, gender, className, point);
-        return student;
+        return new Student(id, name, dateOfBirth, gender, className, point);
     }
 }

@@ -6,4 +6,6 @@ public interface IPersonService<E> {
     void remove();
 
     void displayAll();
+
+    void find();
 }

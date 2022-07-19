@@ -40,15 +40,16 @@ public abstract class Person {
         this.dayOfBirth = dayOfBirth;
     }
 
-    public boolean isMale() {
-        return this.gender == 1;
-    }
-
     public String getGender() {
-        if (isMale()) {
+        if (this.gender == 1) {
             return "Nam";
         }
-        return "Nữ";
+
+        if (this.gender == 2) {
+            return "Nữ";
+        }
+
+        return "LGBT";
     }
 
     public void setGender(int gender) {
