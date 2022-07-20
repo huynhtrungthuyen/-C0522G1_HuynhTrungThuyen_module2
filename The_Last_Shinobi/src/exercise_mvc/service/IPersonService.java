@@ -10,4 +10,6 @@ public interface IPersonService<E> {
     void findId();
 
     void findName();
+
+    void sortByName();
 }

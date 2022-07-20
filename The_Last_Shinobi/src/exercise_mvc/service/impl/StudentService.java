@@ -1,9 +1,11 @@
 package exercise_mvc.service.impl;
 
+import com.sun.org.apache.bcel.internal.generic.SWAP;
 import exercise_mvc.model.Student;
 import exercise_mvc.service.IStudentService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,10 +14,12 @@ public class StudentService implements IStudentService {
     private static Scanner scanner = new Scanner(System.in);
 
     static {
-        studentList.add(new Student(1, "Đặng Thị Thủy Tiên", "20/03/2000", 2, "C0522G1", 7.5));
-        studentList.add(new Student(2, "Hồ Hải Học", "10/12/1995", 1, "C0522G1", 7));
-        studentList.add(new Student(3, "Võ Văn Tý", "01/02/2001", 1, "C0522G1", 1.5));
-        studentList.add(new Student(4, "Lê Đại Lợi", "14/02/1997", 3, "C0522G1", 9));
+        studentList.add(new Student(1, "Le Dai Loi", "24/02/1996", 1, "C0522G1", 8));
+        studentList.add(new Student(6, "Le Dai Loi", "14/02/1998", 2, "C0522G1", 8));
+        studentList.add(new Student(2, "Dang Thi Thuy Tien", "20/03/2000", 2, "C0522G1", 7.5));
+        studentList.add(new Student(3, "Ho Hai Hoc", "10/12/1995", 1, "C0522G1", 7));
+        studentList.add(new Student(4, "Vo Van Ty", "01/02/2001", 1, "C0522G1", 1.5));
+        studentList.add(new Student(0, "Le Dai Loi", "14/02/1997", 3, "C0522G1", 9));
     }
 
     @Override
@@ -93,6 +97,32 @@ public class StudentService implements IStudentService {
 
         if (!isExist) {
             System.out.println("Không tìm thấy!");
+        }
+    }
+
+    @Override
+    public void sortByName() {
+        boolean isSwap = true;
+        for (int i = 0; i < studentList.size() && isSwap ; i++) {
+            isSwap = false;
+            for (int j = 0; j < studentList.size() - 1 - i; j++) {
+
+                if(studentList.get(j).getName().compareTo(studentList.get(j+1).getName()) > 0) {
+                    Collections.swap(studentList,j,j+1);
+                    isSwap = true;
+                }
+
+                if (studentList.get(j).getName().compareTo(studentList.get(j+1).getName()) == 0) {
+                    if (studentList.get(j).getId() > studentList.get(j+1).getId()) {
+                        Collections.swap(studentList,j,j+1);
+                    }
+                }
+            }
+        }
+
+        System.out.println("Danh sách học sinh sau khi sắp xếp: ");
+        for (Student student : studentList) {
+            System.out.println(student);
         }
     }
 

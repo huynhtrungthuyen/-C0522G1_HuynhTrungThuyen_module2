@@ -5,6 +5,7 @@ import exercise_mvc.model.Teacher;
 import exercise_mvc.service.ITeacherService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,10 +14,10 @@ public class TeacherService implements ITeacherService {
     private static Scanner scanner = new Scanner(System.in);
 
     static {
-        teacherList.add(new Teacher(1, "Đặng Chí Trung", "01/03/1990", 1, "Giảng viên lý thuyết"));
-        teacherList.add(new Teacher(2, "Nguyễn Thanh Công", "29/12/1991", 1, "Giảng viên thực hành"));
-        teacherList.add(new Teacher(3, "Trương Tấn Hải", "13/10/1998", 1, "Giảng viên thực hành"));
-        teacherList.add(new Teacher(4, "Nguyễn Ngọc QUang", "06/09/1995", 1, "Giảng viên lý thuyết"));
+        teacherList.add(new Teacher(1, "Dang Chi Trung", "01/03/1990", 1, "Giảng viên lý thuyết"));
+        teacherList.add(new Teacher(2, "Nguyen Thanh Cong", "29/12/1991", 1, "Giảng viên thực hành"));
+        teacherList.add(new Teacher(3, "Truong Tan Hai", "13/10/1998", 1, "Giảng viên thực hành"));
+        teacherList.add(new Teacher(4, "Nguyen Ngoc Quang", "06/09/1995", 1, "Giảng viên lý thuyết"));
     }
 
     @Override
@@ -93,6 +94,32 @@ public class TeacherService implements ITeacherService {
 
         if (!isExist) {
             System.out.println("Không tìm thấy!");
+        }
+    }
+
+    @Override
+    public void sortByName() {
+        boolean isSwap = true;
+        for (int i = 0; i < teacherList.size() && isSwap ; i++) {
+            isSwap = false;
+            for (int j = 0; j < teacherList.size() - 1 - i; j++) {
+
+                if(teacherList.get(j).getName().compareTo(teacherList.get(j+1).getName()) > 0) {
+                    Collections.swap(teacherList,j,j+1);
+                    isSwap = true;
+                }
+
+                if (teacherList.get(j).getName().compareTo(teacherList.get(j+1).getName()) == 0) {
+                    if (teacherList.get(j).getId() > teacherList.get(j+1).getId()) {
+                        Collections.swap(teacherList,j,j+1);
+                    }
+                }
+            }
+        }
+
+        System.out.println("Danh sách học sinh sau khi sắp xếp: ");
+        for (Teacher teacher : teacherList) {
+            System.out.println(teacher);
         }
     }
 
