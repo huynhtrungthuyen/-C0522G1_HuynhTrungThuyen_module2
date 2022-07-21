@@ -1,5 +1,7 @@
 package exercise_mvc.model;
 
+import exercise_mvc.exception.DuplicateIDException;
+
 public abstract class Person {
     private int id;
     private String name;

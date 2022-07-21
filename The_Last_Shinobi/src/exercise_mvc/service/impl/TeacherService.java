@@ -1,5 +1,7 @@
 package exercise_mvc.service.impl;
 
+import exercise_mvc.exception.DuplicateIDException;
+import exercise_mvc.model.Student;
 import exercise_mvc.model.Teacher;
 import exercise_mvc.service.ITeacherService;
 
@@ -123,8 +125,24 @@ public class TeacherService implements ITeacherService {
     }
 
     public static Teacher infoTeacher() {
-        System.out.print("Nhập id: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id;
+        while (true) {
+            try {
+                System.out.print("Nhập id: ");
+                id = Integer.parseInt(scanner.nextLine());
+
+                for (Teacher teacher : teacherList) {
+                    if (teacher.getId() == id) {
+                        throw new DuplicateIDException("Trùng id, vui lòng nhập lại!");
+                    }
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            } catch (DuplicateIDException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         System.out.print("Nhập name: ");
         String name = scanner.nextLine();
@@ -132,11 +150,19 @@ public class TeacherService implements ITeacherService {
         System.out.print("Nhập ngày sinh: ");
         String dateOfBirth = scanner.nextLine();
 
-        System.out.println("Nhập giới tính:\n" +
-                "1. Nam.\n" +
-                "2. Nữ.\n" +
-                "Khác. LGBT.");
-        int gender = Integer.parseInt(scanner.nextLine());
+        int gender;
+        while (true) {
+            try {
+                System.out.println("Nhập giới tính:\n" +
+                        "1. Nam.\n" +
+                        "2. Nữ.\n" +
+                        "Khác. LGBT.");
+                gender = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
+        }
 
         System.out.print("Nhập chuyên môn: ");
         String technique = scanner.nextLine();

@@ -1,6 +1,7 @@
 package exercise_mvc.service.impl;
 
 import com.sun.org.apache.bcel.internal.generic.SWAP;
+import exercise_mvc.exception.DuplicateIDException;
 import exercise_mvc.model.Student;
 import exercise_mvc.service.IStudentService;
 
@@ -103,18 +104,18 @@ public class StudentService implements IStudentService {
     @Override
     public void sortByName() {
         boolean isSwap = true;
-        for (int i = 0; i < studentList.size() && isSwap ; i++) {
+        for (int i = 0; i < studentList.size() && isSwap; i++) {
             isSwap = false;
             for (int j = 0; j < studentList.size() - 1 - i; j++) {
 
-                if(studentList.get(j).getName().compareTo(studentList.get(j+1).getName()) > 0) {
-                    Collections.swap(studentList,j,j+1);
+                if (studentList.get(j).getName().compareTo(studentList.get(j + 1).getName()) > 0) {
+                    Collections.swap(studentList, j, j + 1);
                     isSwap = true;
                 }
 
-                if (studentList.get(j).getName().compareTo(studentList.get(j+1).getName()) == 0) {
-                    if (studentList.get(j).getId() > studentList.get(j+1).getId()) {
-                        Collections.swap(studentList,j,j+1);
+                if (studentList.get(j).getName().compareTo(studentList.get(j + 1).getName()) == 0) {
+                    if (studentList.get(j).getId() > studentList.get(j + 1).getId()) {
+                        Collections.swap(studentList, j, j + 1);
                     }
                 }
             }
@@ -127,8 +128,24 @@ public class StudentService implements IStudentService {
     }
 
     public static Student infoStudent() {
-        System.out.print("Nhập id: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id;
+        while (true) {
+            try {
+                System.out.print("Nhập id: ");
+                id = Integer.parseInt(scanner.nextLine());
+
+                for (Student student : studentList) {
+                    if (student.getId() == id) {
+                        throw new DuplicateIDException("Trùng id, vui lòng nhập lại!");
+                    }
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            } catch (DuplicateIDException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         System.out.print("Nhập name: ");
         String name = scanner.nextLine();
@@ -136,17 +153,33 @@ public class StudentService implements IStudentService {
         System.out.print("Nhập ngày sinh: ");
         String dateOfBirth = scanner.nextLine();
 
-        System.out.println("Nhập giới tính:\n" +
-                "1. Nam.\n" +
-                "2. Nữ.\n" +
-                "Khác. LGBT.");
-        int gender = Integer.parseInt(scanner.nextLine());
+        int gender;
+        while (true) {
+            try {
+                System.out.println("Nhập giới tính:\n" +
+                        "1. Nam.\n" +
+                        "2. Nữ.\n" +
+                        "Khác. LGBT.");
+                gender = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
+        }
 
         System.out.print("Nhập tên lớp: ");
         String className = scanner.nextLine();
 
-        System.out.print("Nhập điểm: ");
-        double point = Double.parseDouble(scanner.nextLine());
+        double point;
+        while (true) {
+            try {
+                System.out.print("Nhập điểm: ");
+                point = Double.parseDouble(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
+        }
 
         return new Student(id, name, dateOfBirth, gender, className, point);
     }
