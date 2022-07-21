@@ -1,7 +1,7 @@
 package ss15_exception_debug.exercise.controller;
 
 import ss15_exception_debug.exercise.model.Triangle;
-import ss15_exception_debug.exercise.model.IllegalRightTriangleException;
+import ss15_exception_debug.exercise.exception.IllegalRightTriangleException;
 
 import java.util.Scanner;
 

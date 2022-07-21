@@ -1,6 +1,6 @@
 package ss15_exception_debug.exercise.model;
 
-import ss15_exception_debug.exercise.model.IllegalRightTriangleException;
+import ss15_exception_debug.exercise.exception.IllegalRightTriangleException;
 
 public class Triangle {
     private double firstEdge;
