@@ -1,6 +1,5 @@
 package exercise_mvc.service.impl;
 
-import exercise_mvc.model.Student;
 import exercise_mvc.model.Teacher;
 import exercise_mvc.service.ITeacherService;
 
