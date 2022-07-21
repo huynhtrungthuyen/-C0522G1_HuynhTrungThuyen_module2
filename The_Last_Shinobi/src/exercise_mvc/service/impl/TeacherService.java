@@ -35,7 +35,7 @@ public class TeacherService implements ITeacherService {
         boolean isExist = false;
 
         for (Teacher teacher : teacherList) {
-            if(teacher.getId() == idRemove) {
+            if (teacher.getId() == idRemove) {
                 System.out.println("Bạn có chắc muốn xóa hay không? \n" +
                         "1. Có \n" +
                         "2. Không");
@@ -49,7 +49,7 @@ public class TeacherService implements ITeacherService {
                 break;
             }
         }
-        if(!isExist) {
+        if (!isExist) {
             System.out.println("Không tìm thấy!");
         }
     }
@@ -101,18 +101,16 @@ public class TeacherService implements ITeacherService {
     @Override
     public void sortByName() {
         boolean isSwap = true;
-        for (int i = 0; i < teacherList.size() && isSwap ; i++) {
+        for (int i = 0; i < teacherList.size() && isSwap; i++) {
             isSwap = false;
             for (int j = 0; j < teacherList.size() - 1 - i; j++) {
 
-                if(teacherList.get(j).getName().compareTo(teacherList.get(j+1).getName()) > 0) {
-                    Collections.swap(teacherList,j,j+1);
+                if (teacherList.get(j).getName().compareTo(teacherList.get(j + 1).getName()) > 0) {
+                    Collections.swap(teacherList, j, j + 1);
                     isSwap = true;
-                }
-
-                if (teacherList.get(j).getName().compareTo(teacherList.get(j+1).getName()) == 0) {
-                    if (teacherList.get(j).getId() > teacherList.get(j+1).getId()) {
-                        Collections.swap(teacherList,j,j+1);
+                } else if (teacherList.get(j).getName().compareTo(teacherList.get(j + 1).getName()) == 0) {
+                    if (teacherList.get(j).getId() > teacherList.get(j + 1).getId()) {
+                        Collections.swap(teacherList, j, j + 1);
                     }
                 }
             }

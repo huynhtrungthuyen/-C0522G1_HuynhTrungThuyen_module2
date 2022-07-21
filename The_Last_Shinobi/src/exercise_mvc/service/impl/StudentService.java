@@ -111,9 +111,7 @@ public class StudentService implements IStudentService {
                 if (studentList.get(j).getName().compareTo(studentList.get(j + 1).getName()) > 0) {
                     Collections.swap(studentList, j, j + 1);
                     isSwap = true;
-                }
-
-                if (studentList.get(j).getName().compareTo(studentList.get(j + 1).getName()) == 0) {
+                } else if (studentList.get(j).getName().compareTo(studentList.get(j + 1).getName()) == 0) {
                     if (studentList.get(j).getId() > studentList.get(j + 1).getId()) {
                         Collections.swap(studentList, j, j + 1);
                     }
