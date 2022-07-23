@@ -1,4 +1,4 @@
-package exercise_mvc.exception;
+package exercise_mvc.utils;
 
 public class DuplicateIDException extends Exception {
     public DuplicateIDException(String message) {

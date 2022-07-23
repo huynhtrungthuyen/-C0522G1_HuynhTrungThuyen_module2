@@ -1,17 +1,15 @@
 package exercise_mvc.model;
 
-import exercise_mvc.exception.DuplicateIDException;
-
 public abstract class Person {
     private int id;
     private String name;
     private String dayOfBirth;
-    private int gender;
+    private String gender;
 
     public Person() {
     }
 
-    public Person(int id, String name, String dayOfBirth, int gender) {
+    public Person(int id, String name, String dayOfBirth, String gender) {
         this.id = id;
         this.name = name;
         this.dayOfBirth = dayOfBirth;
@@ -43,18 +41,10 @@ public abstract class Person {
     }
 
     public String getGender() {
-        if (this.gender == 1) {
-            return "Nam";
-        }
-
-        if (this.gender == 2) {
-            return "Nữ";
-        }
-
-        return "LGBT";
+        return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

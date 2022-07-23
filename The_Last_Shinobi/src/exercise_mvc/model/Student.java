@@ -7,7 +7,7 @@ public class Student extends Person {
     public Student() {
     }
 
-    public Student(int id, String name, String dayOfBirth, int gender, String className, double point) {
+    public Student(int id, String name, String dayOfBirth, String gender, String className, double point) {
         super(id, name, dayOfBirth, gender);
         this.className = className;
         this.point = point;
@@ -27,6 +27,10 @@ public class Student extends Person {
 
     public void setPoint(double point) {
         this.point = point;
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s\n", this.getId(), this.getName(), this.getDayOfBirth(), this.getGender(), this.getClassName(), this.getPoint());
     }
 
     @Override

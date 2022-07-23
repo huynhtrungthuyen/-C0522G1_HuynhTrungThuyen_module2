@@ -7,16 +7,13 @@ import java.util.List;
 public class FileCopy {
     public static List<String> readFile(String path) {
         List<String> list = new ArrayList<>();
-        File file;
-        FileReader fileReader;
-        BufferedReader bufferedReader;
         String line;
         int sum = 0;
 
         try {
-            file = new File(path);
-            fileReader = new FileReader(file);
-            bufferedReader = new BufferedReader(fileReader);
+            File file = new File(path);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while ((line = bufferedReader.readLine()) != null) {
                 sum += line.length();
@@ -32,14 +29,10 @@ public class FileCopy {
     }
 
     public static void writeFile(String path, List<String> list) {
-        File file;
-        FileWriter fileWriter;
-        BufferedWriter bufferedWriter;
-
         try {
-            file = new File(path);
-            fileWriter = new FileWriter(file);
-            bufferedWriter = new BufferedWriter(fileWriter);
+            File file = new File(path);
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             for (String item : list) {
                 bufferedWriter.write(item);
