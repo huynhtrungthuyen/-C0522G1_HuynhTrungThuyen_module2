@@ -13,16 +13,20 @@ public class FuramaController {
         Scanner scanner = new Scanner(System.in);
 
         do {
-            System.out.println("FURAMA MANAGEMENT MENU:.\n" +
-                    "1. Employee Management.\n" +
-                    "2. Customer Management.\n" +
-                    "3. Facility Management.\n" +
-                    "4. Booking Management.\n" +
-                    "5. Promotion Management.\n" +
-                    "6. Exit.");
-
-            System.out.print("Mời bạn nhập lựa chọn: ");
-            int choose = Integer.parseInt(scanner.nextLine());
+            System.out.println("ỨNG DỤNG QUẢN LÝ KHU NGHĨ DƯỠNG FURAMA:\n" +
+                    "1. Quản lý nhân viên.\n" +
+                    "2. Quản lý khách hàng.\n" +
+                    "3. Quản lý cơ sở.\n" +
+                    "4. Quản lý đặt chỗ.\n" +
+                    "5. Quản lý khuyến mãi.\n" +
+                    "6. Thoát.");
+            int choose = 0;
+            try {
+                System.out.print("Mời bạn nhập lựa chọn: ");
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
 
             switch (choose) {
                 case 1:
@@ -42,6 +46,8 @@ public class FuramaController {
                     break;
                 case 6:
                     System.exit(0);
+                default:
+                    System.out.println("Lựa chọn của bạn không có, vui lòng chọn lại!");
             }
         } while (true);
     }

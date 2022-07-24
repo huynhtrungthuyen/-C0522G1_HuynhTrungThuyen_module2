@@ -6,10 +6,9 @@ import exercise_mvc.service.impl.StudentService;
 import java.util.Scanner;
 
 public class StudentController {
-    private Scanner scanner = new Scanner(System.in);
-    private IStudentService iStudentService = new StudentService();
-
     public void menuStudent() {
+        Scanner scanner = new Scanner(System.in);
+        IStudentService iStudentService = new StudentService();
         do {
             System.out.println("Quản lí học sinh: \n" +
                     "1. Thêm mới học sinh. \n" +

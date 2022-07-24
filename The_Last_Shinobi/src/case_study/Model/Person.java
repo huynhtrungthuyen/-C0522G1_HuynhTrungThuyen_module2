@@ -1,10 +1,10 @@
 package case_study.Model;
 
 public abstract class Person {
-    private int id;
+    private String id;
     private String name;
     private String dateOfBirth;
-    private int gender;
+    private String gender;
     private String idCard;
     private String phone;
     private String email;
@@ -12,7 +12,7 @@ public abstract class Person {
     public Person() {
     }
 
-    public Person(int id, String name, String dateOfBirth, int gender, String idCard, String phone, String email) {
+    public Person(String id, String name, String dateOfBirth, String gender, String idCard, String phone, String email) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -22,11 +22,11 @@ public abstract class Person {
         this.email = email;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,18 +47,10 @@ public abstract class Person {
     }
 
     public String getGender() {
-        if (this.gender == 1) {
-            return "Male";
-        }
-
-        if (this.gender == 2) {
-            return "Female";
-        }
-
-        return "LGBT";
+        return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -88,12 +80,12 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Id: " + getId() +
-                ", Name: " + getName() +
-                ", Date Of Birth: " + getDateOfBirth() +
-                ", Gender: " + getGender() +
-                ", Id Card: " + getIdCard() +
-                ",\n\tPhone: " + getPhone() +
+        return "Mã số: " + getId() +
+                ", Tên: " + getName() +
+                ", Ngày sinh: " + getDateOfBirth() +
+                ", Giới tính: " + getGender() +
+                ", Số CMND: " + getIdCard() +
+                ", Số điện thoại: " + getPhone() +
                 ", Email: " + getEmail();
     }
 }

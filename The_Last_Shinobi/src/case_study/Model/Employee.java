@@ -1,14 +1,14 @@
 package case_study.Model;
 
 public class Employee extends Person {
-    private int level;
-    private int position;
-    private double salary;
+    private String level;
+    private String position;
+    private int salary;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, String dateOfBirth, int gender, String idCard, String phone, String email, int level, int position, double salary) {
+    public Employee(String id, String name, String dateOfBirth, String gender, String idCard, String phone, String email, String level, String position, int salary) {
         super(id, name, dateOfBirth, gender, idCard, phone, email);
         this.level = level;
         this.position = position;
@@ -16,56 +16,48 @@ public class Employee extends Person {
     }
 
     public String getLevel() {
-        switch (this.level) {
-            case 1:
-                return "Intermediate Degree";
-            case 2:
-                return "The Degree Of Associate";
-            case 3:
-                return "College Degree";
-            default:
-                return "Postgraduate";
-        }
+        return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
     public String getPosition() {
-        switch (this.position) {
-            case 1:
-                return "Receptionist";
-            case 2:
-                return "Maid";
-            case 3:
-                return "Expert";
-            case 4:
-                return "Supervision";
-            case 5:
-                return "Manager";
-            default:
-                return "Director";
-        }
+        return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
-    public double getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+                this.getId(),
+                this.getName(),
+                this.getDateOfBirth(),
+                this.getGender(),
+                this.getIdCard(),
+                this.getPhone(),
+                this.getEmail(),
+                this.getLevel(),
+                this.getPosition(),
+                this.getSalary());
     }
 
     @Override
     public String toString() {
-        return "EMPLOYEE - " + super.toString() +
-                ", Level: " + getLevel() +
-                ", Position: " + getPosition() +
-                ", Salary: " + getSalary();
+        return "NHÂN VIÊN - " + super.toString() +
+                ", Trình độ: " + getLevel() +
+                ", Vị trí: " + getPosition() +
+                ", Lương (VNĐ/tháng): " + getSalary();
     }
 }

@@ -3,14 +3,14 @@ package case_study.Model;
 public abstract class Facility {
     private String serviceName;
     private double areaUse;
-    private double rentalCosts;
+    private int rentalCosts;
     private int maxNumberOfPeople;
     private String rentalType;
 
     public Facility() {
     }
 
-    public Facility(String serviceName, double areaUse, double rentalCosts, int maxNumberOfPeople, String rentalType) {
+    public Facility(String serviceName, double areaUse, int rentalCosts, int maxNumberOfPeople, String rentalType) {
         this.serviceName = serviceName;
         this.areaUse = areaUse;
         this.rentalCosts = rentalCosts;
@@ -34,11 +34,11 @@ public abstract class Facility {
         this.areaUse = areaUse;
     }
 
-    public double getRentalCosts() {
+    public int getRentalCosts() {
         return rentalCosts;
     }
 
-    public void setRentalCosts(double rentalCosts) {
+    public void setRentalCosts(int rentalCosts) {
         this.rentalCosts = rentalCosts;
     }
 
@@ -60,10 +60,10 @@ public abstract class Facility {
 
     @Override
     public String toString() {
-        return "Service Name: " + getServiceName() +
-                ", Area Use (m2): " + getAreaUse() +
-                ", Rental Costs ($): " + getRentalCosts() +
-                ", Maximum Number Of People: " + getMaxNumberOfPeople() +
-                ", Rental Type: " + getRentalType();
+        return "Tên dịch vụ: " + getServiceName() +
+                ", Diện tích sử dụng (m2): " + getAreaUse() +
+                ", Chi phí thuê (VNĐ): " + getRentalCosts() +
+                ", Số người tối đa: " + getMaxNumberOfPeople() +
+                ", Kiểu thuê: " + getRentalType();
     }
 }

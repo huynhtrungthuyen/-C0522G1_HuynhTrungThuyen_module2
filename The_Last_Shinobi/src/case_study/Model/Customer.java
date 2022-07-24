@@ -1,34 +1,23 @@
 package case_study.Model;
 
 public class Customer extends Person {
-    private int customerType;
+    private String customerType;
     private String address;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String dateOfBirth, int gender, String idCard, String phone, String email, int customerType, String address) {
+    public Customer(String id, String name, String dateOfBirth, String gender, String idCard, String phone, String email, String customerType, String address) {
         super(id, name, dateOfBirth, gender, idCard, phone, email);
         this.customerType = customerType;
         this.address = address;
     }
 
     public String getCustomerType() {
-        switch (this.customerType) {
-            case 1:
-                return "Diamond";
-            case 2:
-                return "Platinium";
-            case 3:
-                return "Gold";
-            case 4:
-                return "Silve";
-            default:
-                return "Member";
-        }
+        return customerType;
     }
 
-    public void setCustomerType(int customerType) {
+    public void setCustomerType(String customerType) {
         this.customerType = customerType;
     }
 
@@ -42,8 +31,8 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return "CUSTOMER - " + super.toString() +
-                ", Customer: " + getCustomerType() +
-                ", Address: " + getAddress();
+        return "KHÁCH HÀNG - " + super.toString() +
+                ", Loại khách hàng: " + getCustomerType() +
+                ", Địa chỉ: " + getAddress();
     }
 }

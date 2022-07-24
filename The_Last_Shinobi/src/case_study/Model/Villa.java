@@ -8,7 +8,7 @@ public class Villa extends Facility {
     public Villa() {
     }
 
-    public Villa(String serviceName, double areaUse, double rentalCosts, int maxNumberOfPeople, String rentalType, String roomStandard, double poolArea, int numberOfFloors) {
+    public Villa(String serviceName, double areaUse, int rentalCosts, int maxNumberOfPeople, String rentalType, String roomStandard, double poolArea, int numberOfFloors) {
         super(serviceName, areaUse, rentalCosts, maxNumberOfPeople, rentalType);
         this.roomStandard = roomStandard;
         this.poolArea = poolArea;
@@ -41,9 +41,9 @@ public class Villa extends Facility {
 
     @Override
     public String toString() {
-        return "VILLA - " + super.toString() +
-                "\n\tRoom Standard: " + getRoomStandard() +
-                ", Pool Area: " + getPoolArea() +
-                ", Number Of Floors: " + getNumberOfFloors();
+        return "BIỆT THỰ - " + super.toString() +
+                "\n\tTiêu chuẩn phòng: " + getRoomStandard() +
+                ", Diện tích hồ bơi (m2): " + getPoolArea() +
+                ", Số tầng: " + getNumberOfFloors();
     }
 }

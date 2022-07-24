@@ -1,6 +1,6 @@
 package exercise_mvc.service;
 
-public interface IPersonService<E> {
+public interface IPersonService {
     void add();
 
     void remove();

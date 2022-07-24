@@ -1,58 +1,47 @@
 package exercise_mvc.service.impl;
 
-import exercise_mvc.utils.DuplicateIDException;
+import exercise_mvc.exception.DuplicateIDException;
 import exercise_mvc.model.Student;
 import exercise_mvc.service.IStudentService;
-import exercise_mvc.utils.ReadStudentFile;
-import exercise_mvc.utils.WriteStudentFile;
+import exercise_mvc.utils.ReadWriteStudentFile;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentService implements IStudentService {
-    private static List<Student> studentList = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
     private static final String PATH = "src/exercise_mvc/data/student.csv";
-
-    public void writeFile() {
-        WriteStudentFile.writeStudentFile(PATH, studentList);
-    }
-
-    public void readFile() {
-        List<Student> list = ReadStudentFile.readStudentFile(PATH);
-        studentList.clear();
-        studentList.addAll(list);
-    }
 
     @Override
     public void add() {
-        readFile();
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         Student student = infoStudent();
         studentList.add(student);
+        ReadWriteStudentFile.writeStudentFile(PATH, studentList);
         System.out.println("Thêm mới thành công!");
-        writeFile();
     }
 
     @Override
     public void remove() {
-        readFile();
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         System.out.println("Mời bạn nhập id cần xóa: ");
-        int idRemove = Integer.parseInt(scanner.nextLine());
+        int idRemove = Integer.parseInt(SCANNER.nextLine());
         boolean isExist = false;
 
         for (Student student : studentList) {
             if (student.getId() == idRemove) {
+                System.out.println("Học sinh cần xóa: ");
+                System.out.println(student);
                 System.out.println("Bạn có chắc muốn xóa hay không? \n" +
                         "1. Có \n" +
                         "2. Không");
-                int chooseYesNo = Integer.parseInt(scanner.nextLine());
+                int chooseYesNo = Integer.parseInt(SCANNER.nextLine());
 
                 if (chooseYesNo == 1) {
                     studentList.remove(student);
+                    ReadWriteStudentFile.writeStudentFile(PATH, studentList);
                     System.out.println("Xóa thành công!");
-                    writeFile();
                 }
                 isExist = true;
                 break;
@@ -66,7 +55,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public void displayAll() {
-        readFile();
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         for (Student student : studentList) {
             System.out.println(student);
         }
@@ -74,9 +63,9 @@ public class StudentService implements IStudentService {
 
     @Override
     public void findId() {
-        readFile();
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         System.out.println("Mời bạn nhập id cần tìm kiếm: ");
-        int idFind = Integer.parseInt(scanner.nextLine());
+        int idFind = Integer.parseInt(SCANNER.nextLine());
         boolean isExist = false;
 
         for (Student student : studentList) {
@@ -94,9 +83,9 @@ public class StudentService implements IStudentService {
 
     @Override
     public void findName() {
-        readFile();
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         System.out.println("Mời bạn nhập tên cần tìm kiếm: ");
-        String nameFind = scanner.nextLine();
+        String nameFind = SCANNER.nextLine();
         boolean isExist = false;
 
         for (Student student : studentList) {
@@ -113,7 +102,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public void sortByName() {
-        readFile();
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         boolean isSwap = true;
         for (int i = 0; i < studentList.size() && isSwap; i++) {
             isSwap = false;
@@ -134,15 +123,16 @@ public class StudentService implements IStudentService {
         for (Student student : studentList) {
             System.out.println(student);
         }
-        writeFile();
+        ReadWriteStudentFile.writeStudentFile(PATH, studentList);
     }
 
     public static Student infoStudent() {
+        List<Student> studentList = ReadWriteStudentFile.readStudentFile(PATH);
         int id;
         while (true) {
             try {
                 System.out.print("Nhập id: ");
-                id = Integer.parseInt(scanner.nextLine());
+                id = Integer.parseInt(SCANNER.nextLine());
 
                 for (Student student : studentList) {
                     if (student.getId() == id) {
@@ -158,22 +148,21 @@ public class StudentService implements IStudentService {
         }
 
         System.out.print("Nhập name: ");
-        String name = scanner.nextLine();
+        String name = SCANNER.nextLine();
 
         System.out.print("Nhập ngày sinh: ");
-        String dateOfBirth = scanner.nextLine();
+        String dateOfBirth = SCANNER.nextLine();
 
-        System.out.print("Nhập giới tính: ");
-        String gender = scanner.nextLine();
+        String gender = getGender();
 
         System.out.print("Nhập tên lớp: ");
-        String className = scanner.nextLine();
+        String className = SCANNER.nextLine();
 
         double point;
         while (true) {
             try {
                 System.out.print("Nhập điểm: ");
-                point = Double.parseDouble(scanner.nextLine());
+                point = Double.parseDouble(SCANNER.nextLine());
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Vui lòng nhập số!");
@@ -181,5 +170,30 @@ public class StudentService implements IStudentService {
         }
 
         return new Student(id, name, dateOfBirth, gender, className, point);
+    }
+
+    public static String getGender() {
+        System.out.println("Nhập giới tính:\n" +
+                "1. Nam.\n" +
+                "2. Nữ.\n" +
+                "3. Giới tính thứ 3.");
+        int choose = 0;
+        do {
+            try {
+                choose = Integer.parseInt(SCANNER.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
+            switch (choose) {
+                case 1:
+                    return "nam";
+                case 2:
+                    return "nữ";
+                case 3:
+                    return "giới tính thứ 3";
+                default:
+                    System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
+            }
+        } while (true);
     }
 }

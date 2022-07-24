@@ -7,15 +7,21 @@ public class CustomerController {
 
     public void menuCustomerManagement() {
         do {
-            System.out.println("CUSTOMER MANAGEMENT MENU: \n" +
-                    "1. Display list customers.\n" +
-                    "2. Add new customer.\n" +
-                    "3. Edit customer.\n" +
-                    "4. Return main menu.");
-            int choose = Integer.parseInt(scanner.nextLine());
+            System.out.println("QUẢN LÝ KHÁCH HÀNG:\n" +
+                    "1. Hiển thị danh sách khách hàng.\n" +
+                    "2. Thêm mới khách hàng.\n" +
+                    "3. Chỉnh sửa khách hàng.\n" +
+                    "4. Trở về MENU chính.");
+            int choose = 0;
+            try {
+                System.out.print("Mời bạn nhập lựa chọn: ");
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
+
             switch (choose) {
                 case 1:
-//                    truck.add();
                     break;
                 case 2:
                     break;
@@ -23,6 +29,8 @@ public class CustomerController {
                     break;
                 case 4:
                     return;
+                default:
+                    System.out.println("Lựa chọn của bạn không có, vui lòng chọn lại!");
             }
         } while (true);
     }
