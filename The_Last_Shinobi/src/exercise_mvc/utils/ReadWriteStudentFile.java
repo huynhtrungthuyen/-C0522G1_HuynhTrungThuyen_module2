@@ -33,7 +33,9 @@ public class ReadWriteStudentFile {
         String[] info;
         for (String line : stringList) {
             info = line.split(",");
-            studentList.add(new Student(Integer.parseInt(info[0]), info[1], info[2], info[3], info[4], Double.parseDouble(info[5])));
+            if (info.length == 6) {
+                studentList.add(new Student(Integer.parseInt(info[0]), info[1], info[2], info[3], info[4], Double.parseDouble(info[5])));
+            }
         }
 
         return studentList;

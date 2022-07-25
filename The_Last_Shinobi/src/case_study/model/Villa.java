@@ -1,15 +1,17 @@
-package case_study.Model;
+package case_study.model;
 
-public class House extends Facility {
+public class Villa extends Facility {
     private String roomStandard;
+    private double poolArea;
     private int numberOfFloors;
 
-    public House() {
+    public Villa() {
     }
 
-    public House(String serviceName, double areaUse, int rentalCosts, int maxNumberOfPeople, String rentalType, String roomStandard, int numberOfFloors) {
+    public Villa(String serviceName, double areaUse, int rentalCosts, int maxNumberOfPeople, String rentalType, String roomStandard, double poolArea, int numberOfFloors) {
         super(serviceName, areaUse, rentalCosts, maxNumberOfPeople, rentalType);
         this.roomStandard = roomStandard;
+        this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
     }
 
@@ -19,6 +21,14 @@ public class House extends Facility {
 
     public void setRoomStandard(String roomStandard) {
         this.roomStandard = roomStandard;
+    }
+
+    public double getPoolArea() {
+        return poolArea;
+    }
+
+    public void setPoolArea(double poolArea) {
+        this.poolArea = poolArea;
     }
 
     public int getNumberOfFloors() {
@@ -31,8 +41,9 @@ public class House extends Facility {
 
     @Override
     public String toString() {
-        return "NHÀ - " + super.toString() +
+        return "BIỆT THỰ - " + super.toString() +
                 "\n\tTiêu chuẩn phòng: " + getRoomStandard() +
+                ", Diện tích hồ bơi (m2): " + getPoolArea() +
                 ", Số tầng: " + getNumberOfFloors();
     }
 }

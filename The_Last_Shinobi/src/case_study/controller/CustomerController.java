@@ -1,11 +1,14 @@
 package case_study.controller;
 
+import case_study.service.ICustomerService;
+import case_study.service.impl.CustomerService;
+
 import java.util.Scanner;
 
 public class CustomerController {
-    private final Scanner scanner = new Scanner(System.in);
-
     public void menuCustomerManagement() {
+        Scanner scanner = new Scanner(System.in);
+        ICustomerService iCustomerService = new CustomerService();
         do {
             System.out.println("QUẢN LÝ KHÁCH HÀNG:\n" +
                     "1. Hiển thị danh sách khách hàng.\n" +
@@ -22,10 +25,13 @@ public class CustomerController {
 
             switch (choose) {
                 case 1:
+                    iCustomerService.display();
                     break;
                 case 2:
+                    iCustomerService.add();
                     break;
                 case 3:
+                    iCustomerService.edit();
                     break;
                 case 4:
                     return;

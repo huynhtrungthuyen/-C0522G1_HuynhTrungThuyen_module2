@@ -18,7 +18,13 @@ public class StudentController {
                     "5. Tìm kiếm học sinh theo tên. \n" +
                     "6. Sắp xếp học sinh theo tên. \n" +
                     "7. Quay về menu chính.");
-            int choose = Integer.parseInt(scanner.nextLine());
+            int choose = 0;
+            try {
+                System.out.print("Mời bạn nhập lựa chọn: ");
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
             switch (choose) {
                 case 1:
                     iStudentService.add();

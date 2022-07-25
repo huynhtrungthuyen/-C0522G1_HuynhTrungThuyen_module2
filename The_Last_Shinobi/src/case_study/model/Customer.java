@@ -1,4 +1,4 @@
-package case_study.Model;
+package case_study.model;
 
 public class Customer extends Person {
     private String customerType;
@@ -27,6 +27,19 @@ public class Customer extends Person {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+                this.getId(),
+                this.getName(),
+                this.getDateOfBirth(),
+                this.getGender(),
+                this.getIdCard(),
+                this.getPhone(),
+                this.getEmail(),
+                this.getCustomerType(),
+                this.getAddress());
     }
 
     @Override

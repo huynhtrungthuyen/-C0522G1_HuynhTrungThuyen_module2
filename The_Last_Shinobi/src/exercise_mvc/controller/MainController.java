@@ -13,8 +13,13 @@ public class MainController {
                     "2. Quản lí giảng viên.\n" +
                     "3. Thoát chương trình.");
 
-            System.out.print("Mời bạn nhập lựa chọn: ");
-            int choose = Integer.parseInt(scanner.nextLine());
+            int choose = 0;
+            try {
+                System.out.print("Mời bạn nhập lựa chọn: ");
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số!");
+            }
             switch (choose) {
                 case 1:
                     studentController.menuStudent();

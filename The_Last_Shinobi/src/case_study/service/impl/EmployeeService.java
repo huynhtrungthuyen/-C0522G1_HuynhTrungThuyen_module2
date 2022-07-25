@@ -1,6 +1,6 @@
 package case_study.service.impl;
 
-import case_study.Model.Employee;
+import case_study.model.Employee;
 import case_study.service.IEmployeeService;
 import case_study.utils.ReadWriteEmployeeFile;
 
@@ -11,7 +11,7 @@ public class EmployeeService implements IEmployeeService {
     private static final String PATH_EMPLOYEE = "src/case_study/data/employee.csv";
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public String getGender() {
+    private String getGender() {
         System.out.println("Nhập giới tính nhân viên:\n" +
                 "1. Nam.\n" +
                 "2. Nữ.\n" +
@@ -36,7 +36,7 @@ public class EmployeeService implements IEmployeeService {
         } while (true);
     }
 
-    public String getLevel() {
+    private String getLevel() {
         System.out.println("Nhập trình độ nhân viên:\n" +
                 "1. Trung cấp.\n" +
                 "2. Cao đẳng.\n" +
@@ -64,7 +64,7 @@ public class EmployeeService implements IEmployeeService {
         } while (true);
     }
 
-    public String getPosition() {
+    private String getPosition() {
         System.out.println("Nhập vị trí nhân viên:\n" +
                 "1. Lễ Tân.\n" +
                 "2. Phục vụ.\n" +
@@ -169,6 +169,8 @@ public class EmployeeService implements IEmployeeService {
 
         for (int i = 0; i < employeeList.size(); i++) {
             if (idEdit.equals((employeeList.get(i).getId()))) {
+                System.out.println("Nhân viên muốn chỉnh sửa: ");
+                System.out.println(employeeList.get(i));
                 System.out.println("Bạn có chắc muốn chỉnh sửa hay không?\n" +
                         "1. Có.\n" +
                         "2. Không.");
