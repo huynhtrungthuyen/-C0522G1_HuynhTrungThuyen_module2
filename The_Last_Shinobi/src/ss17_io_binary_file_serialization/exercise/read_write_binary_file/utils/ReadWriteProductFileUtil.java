@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteProductFile {
+public class ReadWriteProductFileUtil {
     public static List<Product> readProductFile(String path) {
         List<Product> productList = new ArrayList<>();
 

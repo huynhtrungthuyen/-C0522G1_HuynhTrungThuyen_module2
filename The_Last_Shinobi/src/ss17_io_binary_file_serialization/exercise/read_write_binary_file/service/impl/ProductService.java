@@ -3,7 +3,7 @@ package ss17_io_binary_file_serialization.exercise.read_write_binary_file.servic
 import ss17_io_binary_file_serialization.exercise.read_write_binary_file.exception.DuplicateIDException;
 import ss17_io_binary_file_serialization.exercise.read_write_binary_file.model.Product;
 import ss17_io_binary_file_serialization.exercise.read_write_binary_file.service.IProductService;
-import ss17_io_binary_file_serialization.exercise.read_write_binary_file.utils.ReadWriteProductFile;
+import ss17_io_binary_file_serialization.exercise.read_write_binary_file.utils.ReadWriteProductFileUtil;
 
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ public class ProductService implements IProductService {
 
     @Override
     public void add() {
-        List<Product> productList = ReadWriteProductFile.readProductFile(PATH);
+        List<Product> productList = ReadWriteProductFileUtil.readProductFile(PATH);
 
         int id;
         while (true) {
@@ -53,13 +53,13 @@ public class ProductService implements IProductService {
         }
 
         productList.add(new Product(id, name, manufacturer, price));
-        ReadWriteProductFile.writeProductFile(PATH, productList);
+        ReadWriteProductFileUtil.writeProductFile(PATH, productList);
         System.out.println("Thêm sản phẩm thành công!");
     }
 
     @Override
     public void display() {
-        List<Product> productList = ReadWriteProductFile.readProductFile(PATH);
+        List<Product> productList = ReadWriteProductFileUtil.readProductFile(PATH);
         System.out.println("Danh sách sản phẩm: ");
         for (Product product : productList) {
             System.out.println(product);
@@ -68,7 +68,7 @@ public class ProductService implements IProductService {
 
     @Override
     public void findByName() {
-        List<Product> productList = ReadWriteProductFile.readProductFile(PATH);
+        List<Product> productList = ReadWriteProductFileUtil.readProductFile(PATH);
         System.out.println("Nhập tên sản phẩm cần tìm kiếm: ");
         String nameFind = SCANNER.nextLine();
         boolean isExist = false;

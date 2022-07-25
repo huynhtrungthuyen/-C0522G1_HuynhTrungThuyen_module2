@@ -10,22 +10,22 @@ public class CopyFile {
     }
 
     private static void copyFileUsingStream(File source, File dest) throws IOException {
-        InputStream is = null;
-        OutputStream os = null;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
         int count = 0;
         try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
+            inputStream = new FileInputStream(source);
+            outputStream = new FileOutputStream(dest);
             byte[] buffer = new byte[1024];
             int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
                 count += length;
             }
             System.out.println("Số byte trong tệp: "+ count);
         } finally {
-            is.close();
-            os.close();
+            inputStream.close();
+            outputStream.close();
         }
     }
 

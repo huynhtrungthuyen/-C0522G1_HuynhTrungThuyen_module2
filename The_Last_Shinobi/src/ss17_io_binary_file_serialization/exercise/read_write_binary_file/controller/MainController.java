@@ -1,12 +1,19 @@
 package ss17_io_binary_file_serialization.exercise.read_write_binary_file.controller;
 
+import ss17_io_binary_file_serialization.exercise.read_write_binary_file.model.Product;
 import ss17_io_binary_file_serialization.exercise.read_write_binary_file.service.IProductService;
 import ss17_io_binary_file_serialization.exercise.read_write_binary_file.service.impl.ProductService;
+import ss17_io_binary_file_serialization.exercise.read_write_binary_file.utils.ReadWriteProductFileUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainController {
     public static void menuController() {
+        List<Product> productList = new ArrayList<>();
+        productList.add(new Product(1, "Iphone 6s", "Apple", 3000000));
+        ReadWriteProductFileUtil.writeProductFile("src/ss17_io_binary_file_serialization/exercise/read_write_binary_file/data/product.csv", productList);
         Scanner scanner = new Scanner(System.in);
         IProductService iProductService = new ProductService();
         do {
