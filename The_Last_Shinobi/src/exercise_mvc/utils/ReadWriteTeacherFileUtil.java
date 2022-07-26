@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteTeacherFile {
+public class ReadWriteTeacherFileUtil {
     private static List<String> readFile(String path) {
         List<String> stringList = new ArrayList<>();
         String line;

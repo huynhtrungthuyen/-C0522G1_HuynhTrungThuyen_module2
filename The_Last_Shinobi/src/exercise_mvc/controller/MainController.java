@@ -29,6 +29,8 @@ public class MainController {
                     break;
                 case 3:
                     System.exit(0);
+                default:
+                    System.out.println("Lựa chọn của bạn không có, vui lòng chọn lại!");
             }
         } while (true);
     }

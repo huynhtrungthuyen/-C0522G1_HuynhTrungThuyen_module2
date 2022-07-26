@@ -46,6 +46,8 @@ public class StudentController {
                     break;
                 case 7:
                     return;
+                default:
+                    System.out.println("Lựa chọn của bạn không có, vui lòng chọn lại!");
             }
         } while (true);
     }

@@ -15,16 +15,16 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void add() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         Teacher teacher = infoTeacher();
         teacherList.add(teacher);
-        ReadWriteTeacherFile.writeTeacherFile(PATH, teacherList);
+        ReadWriteTeacherFileUtil.writeTeacherFile(PATH, teacherList);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
     public void remove() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         System.out.println("Mời bạn nhập id cần xóa: ");
         int idRemove = Integer.parseInt(SCANNER.nextLine());
         boolean isExist = false;
@@ -40,7 +40,7 @@ public class TeacherService implements ITeacherService {
 
                 if (chooseYesNo == 1) {
                     teacherList.remove(teacher);
-                    ReadWriteTeacherFile.writeTeacherFile(PATH, teacherList);
+                    ReadWriteTeacherFileUtil.writeTeacherFile(PATH, teacherList);
                     System.out.println("Xóa thành công!");
                 }
                 isExist = true;
@@ -55,7 +55,7 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void displayAll() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         for (Teacher teacher : teacherList) {
             System.out.println(teacher);
         }
@@ -63,7 +63,7 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void findId() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         System.out.println("Mời bạn nhập id cần tìm kiếm: ");
         int idFind = Integer.parseInt(SCANNER.nextLine());
         boolean isExist = false;
@@ -83,7 +83,7 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void findName() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         System.out.println("Mời bạn nhập tên cần tìm kiếm: ");
         String nameFind = SCANNER.nextLine();
         boolean isExist = false;
@@ -102,7 +102,7 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void sortByName() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         boolean isSwap = true;
         for (int i = 0; i < teacherList.size() && isSwap; i++) {
             isSwap = false;
@@ -123,11 +123,11 @@ public class TeacherService implements ITeacherService {
         for (Teacher teacher : teacherList) {
             System.out.println(teacher);
         }
-        ReadWriteTeacherFile.writeTeacherFile(PATH, teacherList);
+        ReadWriteTeacherFileUtil.writeTeacherFile(PATH, teacherList);
     }
 
     public static Teacher infoTeacher() {
-        List<Teacher> teacherList = ReadWriteTeacherFile.readTeacherFile(PATH);
+        List<Teacher> teacherList = ReadWriteTeacherFileUtil.readTeacherFile(PATH);
         int id;
         while (true) {
             try {
@@ -147,42 +147,15 @@ public class TeacherService implements ITeacherService {
             }
         }
 
-        System.out.print("Nhập name: ");
-        String name = SCANNER.nextLine();
+        String name = MenuUtil.getName();
 
-        System.out.print("Nhập ngày sinh: ");
-        String dateOfBirth = SCANNER.nextLine();
+        String dateOfBirth = MenuUtil.getDateOfBirth();
 
-        String gender = getGender();
+        String gender = MenuUtil.getGender();
 
         System.out.print("Nhập chuyên môn: ");
         String technique = SCANNER.nextLine();
 
         return new Teacher(id, name, dateOfBirth, gender, technique);
-    }
-
-    public static String getGender() {
-        System.out.println("Nhập giới tính:\n" +
-                "1. Nam.\n" +
-                "2. Nữ.\n" +
-                "3. Giới tính thứ 3.");
-        int choose = 0;
-        do {
-            try {
-                choose = Integer.parseInt(SCANNER.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
-            }
-            switch (choose) {
-                case 1:
-                    return "nam";
-                case 2:
-                    return "nữ";
-                case 3:
-                    return "giới tính thứ 3";
-                default:
-                    System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
-            }
-        } while (true);
     }
 }
