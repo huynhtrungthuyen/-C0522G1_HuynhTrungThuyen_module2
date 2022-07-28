@@ -2,7 +2,9 @@ package case_study.service.impl;
 
 import case_study.model.Customer;
 import case_study.service.ICustomerService;
-import case_study.utils.ReadWriteCustomerFile;
+import case_study.utils.MenuUtil;
+import case_study.utils.ReadWriteCustomerFileUtil;
+import case_study.utils.RegexExceptionUtil;
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,65 +13,9 @@ public class CustomerService implements ICustomerService {
     private static final String PATH_CUSTOMER = "src/case_study/data/customer.csv";
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private String getGender() {
-        System.out.println("Nhập giới tính khách hàng:\n" +
-                "1. Nam.\n" +
-                "2. Nữ.\n" +
-                "3. Giới tính thứ 3.");
-        int choose = 0;
-        do {
-            try {
-                choose = Integer.parseInt(SCANNER.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
-            }
-            switch (choose) {
-                case 1:
-                    return "nam";
-                case 2:
-                    return "nữ";
-                case 3:
-                    return "giới tính thứ 3";
-                default:
-                    System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
-            }
-        } while (true);
-    }
-
-    private String getCustomerType() {
-        System.out.println("Nhập loại khách hàng:\n" +
-                "1. Kim cương.\n" +
-                "2. Bạch kim.\n" +
-                "3. Vàng.\n" +
-                "4. Bạc.\n" +
-                "5. Thành viên.");
-        int choose = 0;
-        do {
-            try {
-                choose = Integer.parseInt(SCANNER.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
-            }
-            switch (choose) {
-                case 1:
-                    return "Kim cương";
-                case 2:
-                    return "Bạch kim";
-                case 3:
-                    return "Vàng";
-                case 4:
-                    return "Bạc";
-                case 5:
-                    return "Thành viên";
-                default:
-                    System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
-            }
-        } while (true);
-    }
-
     @Override
     public void add() {
-        List<Customer> customerList = ReadWriteCustomerFile.readCustomerFile(PATH_CUSTOMER);
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(PATH_CUSTOMER);
         System.out.print("Nhập mã số khách hàng: ");
         boolean isExistId;
         String id;
@@ -78,6 +24,7 @@ public class CustomerService implements ICustomerService {
             id = SCANNER.nextLine();
             for (Customer customer : customerList) {
                 if (id.equals(customer.getId())) {
+                    System.out.println("Mã khách hàng đã tồn tại, vui lòng nhập lại!");
                     isExistId = true;
                     break;
                 }
@@ -87,10 +34,9 @@ public class CustomerService implements ICustomerService {
         System.out.print("Nhập tên khách hàng: ");
         String name = SCANNER.nextLine();
 
-        System.out.print("Nhập ngày sinh khách hàng: ");
-        String dateOfBirth = SCANNER.nextLine();
+        String dateOfBirth = RegexExceptionUtil.getDateOfBirth();
 
-        String gender = getGender();
+        String gender = MenuUtil.getGender();
 
         System.out.print("Nhập số CMND khách hàng: ");
         String idCard = SCANNER.nextLine();
@@ -101,19 +47,19 @@ public class CustomerService implements ICustomerService {
         System.out.print("Nhập email khách hàng: ");
         String email = SCANNER.nextLine();
 
-        String customerType = getCustomerType();
+        String customerType = MenuUtil.getCustomerType();
 
         System.out.print("Nhập địa chỉ khách hàng: ");
         String address = SCANNER.nextLine();
 
         customerList.add(new Customer(id, name, dateOfBirth, gender, idCard, phone, email, customerType, address));
-        ReadWriteCustomerFile.writeCustomerFile(PATH_CUSTOMER, customerList);
+        ReadWriteCustomerFileUtil.writeCustomerFile(PATH_CUSTOMER, customerList);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
     public void display() {
-        List<Customer> customerList = ReadWriteCustomerFile.readCustomerFile(PATH_CUSTOMER);
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(PATH_CUSTOMER);
         for (Customer customer : customerList) {
             System.out.println(customer);
         }
@@ -121,7 +67,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void edit() {
-        List<Customer> customerList = ReadWriteCustomerFile.readCustomerFile(PATH_CUSTOMER);
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(PATH_CUSTOMER);
         System.out.print("Nhập mã số khách hàng cần chỉnh sửa: ");
         String idEdit = SCANNER.nextLine();
         boolean isExist = false;
@@ -142,7 +88,7 @@ public class CustomerService implements ICustomerService {
                     System.out.print("Nhập ngày sinh khách hàng: ");
                     String dateOfBirth = SCANNER.nextLine();
 
-                    String gender = getGender();
+                    String gender = MenuUtil.getGender();
 
                     System.out.print("Nhập số CMND khách hàng: ");
                     String idCard = SCANNER.nextLine();
@@ -153,13 +99,13 @@ public class CustomerService implements ICustomerService {
                     System.out.print("Nhập email khách hàng: ");
                     String email = SCANNER.nextLine();
 
-                    String customerType = getCustomerType();
+                    String customerType = MenuUtil.getCustomerType();
 
                     System.out.print("Nhập địa chỉ khách hàng: ");
                     String address = SCANNER.nextLine();
 
                     customerList.set(i, new Customer(idEdit, name, dateOfBirth, gender, idCard, phone, email, customerType, address));
-                    ReadWriteCustomerFile.writeCustomerFile(PATH_CUSTOMER, customerList);
+                    ReadWriteCustomerFileUtil.writeCustomerFile(PATH_CUSTOMER, customerList);
                     System.out.println("Chỉnh sửa thành công!");
                 }
 

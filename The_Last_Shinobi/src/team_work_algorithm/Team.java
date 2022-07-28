@@ -1,7 +1,9 @@
 package team_work_algorithm;
 
+import java.text.ParseException;
+
 public class Team {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         for (int i = 1; i <= 9; i++) {
             for (int j = 1; j <= 10; j++) {
                 if (j == 6 - i || j == 5 + i) {

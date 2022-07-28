@@ -1,11 +1,14 @@
 package case_study.controller;
 
+import case_study.service.IFacilityService;
+import case_study.service.impl.FacilityService;
+
 import java.util.Scanner;
 
 public class FacilityController {
-    private final Scanner scanner = new Scanner(System.in);
-
     public void menuFacilityManagement() {
+        Scanner scanner = new Scanner(System.in);
+        IFacilityService iFacilityService = new FacilityService();
         do {
             System.out.println("QUẢN LÝ CƠ SỞ:\n" +
                     "1. Hiển thị cơ sở.\n" +
@@ -22,10 +25,13 @@ public class FacilityController {
 
             switch (choose) {
                 case 1:
+                    iFacilityService.display();
                     break;
                 case 2:
+                    iFacilityService.add();
                     break;
                 case 3:
+                    iFacilityService.displayMaintain();
                     break;
                 case 4:
                     return;
