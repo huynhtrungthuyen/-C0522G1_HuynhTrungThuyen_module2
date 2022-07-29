@@ -87,11 +87,11 @@ public class EmployeeService implements IEmployeeService {
                 System.out.println("Nhân viên muốn chỉnh sửa: ");
                 System.out.println(employeeList.get(i));
                 System.out.println("Bạn có chắc muốn chỉnh sửa hay không?\n" +
-                        "1. Có.\n" +
-                        "2. Không.");
-                int chooseYesNo = Integer.parseInt(SCANNER.nextLine());
+                        "Nhấn phím '1' nếu là CÓ.\n" +
+                        "Nhấn phím khác nếu là KHÔNG.");
+                String chooseYesNo = SCANNER.nextLine();
 
-                if (chooseYesNo == 1) {
+                if (chooseYesNo.equals("1")) {
                     System.out.print("Nhập tên nhân viên: ");
                     String name = SCANNER.nextLine();
 

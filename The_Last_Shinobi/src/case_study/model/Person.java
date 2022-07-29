@@ -78,6 +78,8 @@ public abstract class Person {
         this.email = email;
     }
 
+    public abstract String getInfo();
+
     @Override
     public String toString() {
         return "Mã số: " + getId() +

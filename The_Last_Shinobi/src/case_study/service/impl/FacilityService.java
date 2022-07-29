@@ -70,7 +70,7 @@ public class FacilityService implements IFacilityService {
             try {
                 System.out.print("Nhập tên dịch vụ: ");
                 serviceName = SCANNER.nextLine();
-                if (serviceName.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
+                if (!serviceName.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
                     throw new TextFormatException("Tên dịch vụ phải viết hoa ký tự đầu, các ký tự sau là ký tự bình thường!");
                 }
                 break;
@@ -88,8 +88,10 @@ public class FacilityService implements IFacilityService {
                     throw new AreaInvalidException("Diện tích sử dụng phải là số thực lớn hơn 30m2!");
                 }
                 break;
-            } catch (NumberFormatException | AreaInvalidException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Vui lòng nhập số!");
+            } catch (AreaInvalidException e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -162,7 +164,7 @@ public class FacilityService implements IFacilityService {
                         try {
                             System.out.print("Nhập tiêu chuẩn phòng: ");
                             roomStandardVilla = SCANNER.nextLine();
-                            if (roomStandardVilla.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
+                            if (!roomStandardVilla.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
                                 throw new TextFormatException("Tiêu chuẩn phòng phải viết hoa ký tự đầu, các ký tự sau là ký tự bình thường!");
                             }
                             break;
@@ -221,7 +223,7 @@ public class FacilityService implements IFacilityService {
                         try {
                             System.out.print("Nhập tiêu chuẩn phòng: ");
                             roomStandardHouse = SCANNER.nextLine();
-                            if (roomStandardHouse.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
+                            if (!roomStandardHouse.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
                                 throw new TextFormatException("Tiêu chuẩn phòng phải viết hoa ký tự đầu, các ký tự sau là ký tự bình thường!");
                             }
                             break;
@@ -281,19 +283,19 @@ public class FacilityService implements IFacilityService {
         System.out.println("1. Danh sách biệt thự: ");
         Map<Facility, Integer> villaList = ReadWriteFacilityFileUtil.readFacilityFile(PATH_VILLA);
         for (Facility villa : villaList.keySet()) {
-            System.out.println(villa + ",\tSố lần sử dụng: " + villaList.get(villa));
+            System.out.println(villa + " | Số lần sử dụng: " + villaList.get(villa));
         }
 
         System.out.println("2. Danh sách nhà: ");
         Map<Facility, Integer> houseList = ReadWriteFacilityFileUtil.readFacilityFile(PATH_HOUSE);
         for (Facility house : houseList.keySet()) {
-            System.out.println(house + ",\tSố lần sử dụng: " + houseList.get(house));
+            System.out.println(house + " | Số lần sử dụng: " + houseList.get(house));
         }
 
-        System.out.println("3. Danh sách nhà: ");
+        System.out.println("3. Danh sách phòng: ");
         Map<Facility, Integer> roomList = ReadWriteFacilityFileUtil.readFacilityFile(PATH_ROOM);
         for (Facility room : roomList.keySet()) {
-            System.out.println(room + ",\tSố lần sử dụng: " + roomList.get(room));
+            System.out.println(room + " | Số lần sử dụng: " + roomList.get(room));
         }
     }
 
@@ -305,7 +307,7 @@ public class FacilityService implements IFacilityService {
         Map<Facility, Integer> villaList = ReadWriteFacilityFileUtil.readFacilityFile(PATH_VILLA);
         for (Facility villa : villaList.keySet()) {
             if (villaList.get(villa) > 4) {
-                System.out.println(villa + "\tSố lần sử dụng: " + villaList.get(villa));
+                System.out.println(villa + " | Số lần sử dụng: " + villaList.get(villa));
             }
         }
 
@@ -313,15 +315,15 @@ public class FacilityService implements IFacilityService {
         Map<Facility, Integer> houseList = ReadWriteFacilityFileUtil.readFacilityFile(PATH_HOUSE);
         for (Facility house : houseList.keySet()) {
             if (houseList.get(house) > 4) {
-                System.out.println(house + ",\tSố lần sử dụng: " + houseList.get(house));
+                System.out.println(house + " | Số lần sử dụng: " + houseList.get(house));
             }
         }
 
-        System.out.println("3. Danh sách bảo trì nhà: ");
+        System.out.println("3. Danh sách bảo trì phòng: ");
         Map<Facility, Integer> roomList = ReadWriteFacilityFileUtil.readFacilityFile(PATH_ROOM);
         for (Facility room : roomList.keySet()) {
             if (roomList.get(room) > 4) {
-                System.out.println(room + ",\tSố lần sử dụng: " + roomList.get(room));
+                System.out.println(room + " | Số lần sử dụng: " + roomList.get(room));
             }
         }
     }

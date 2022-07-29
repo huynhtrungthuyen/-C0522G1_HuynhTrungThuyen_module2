@@ -49,7 +49,7 @@ public class RegexExceptionUtil {
                     }
                 }
 
-                age = (double) (date.getTime() - dateFormat.parse(dateOfBirth).getTime())/31557600;
+                age = (double) (date.getTime() - dateFormat.parse(dateOfBirth).getTime())/315576E5;
                 if (age < 18 || age > 100) {
                     throw new AgeInvalidException("Ngày sinh phải nhỏ hơn ngày hiện tại 18 năm và người dùng không được quá 100 tuổi!");
                 }

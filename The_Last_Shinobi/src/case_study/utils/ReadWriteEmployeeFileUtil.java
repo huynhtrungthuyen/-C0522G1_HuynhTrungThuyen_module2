@@ -34,17 +34,7 @@ public class ReadWriteEmployeeFileUtil {
         for (String line : stringList) {
             info = line.split(",");
             if (info.length == 10) {
-                employeeList.add(new Employee(
-                        info[0],
-                        info[1],
-                        info[2],
-                        info[3],
-                        info[4],
-                        info[5],
-                        info[6],
-                        info[7],
-                        info[8],
-                        Integer.parseInt(info[9])));
+                employeeList.add(new Employee(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], Integer.parseInt(info[9])));
             }
         }
 
