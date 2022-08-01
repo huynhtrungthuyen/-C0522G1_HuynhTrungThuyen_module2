@@ -1,30 +1,32 @@
 package case_study.model;
 
-public class Booking {
-    private int bookingId;
+import java.util.Objects;
+
+public class Booking implements Comparable<Booking> {
+    private String bookingId;
     private String startDay;
     private String endDay;
-    private int customerId;
+    private String customerId;
+    private String serviceId;
     private String serviceName;
-    private String serviceType;
 
     public Booking() {
     }
 
-    public Booking(int bookingId, String startDay, String endDay, int customerId, String serviceName, String serviceType) {
+    public Booking(String bookingId, String startDay, String endDay, String customerId, String serviceId, String serviceName) {
         this.bookingId = bookingId;
         this.startDay = startDay;
         this.endDay = endDay;
         this.customerId = customerId;
+        this.serviceId = serviceId;
         this.serviceName = serviceName;
-        this.serviceType = serviceType;
     }
 
-    public int getBookingId() {
+    public String getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(int bookingId) {
+    public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 
@@ -44,12 +46,20 @@ public class Booking {
         this.endDay = endDay;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getServiceName() {
@@ -60,22 +70,42 @@ public class Booking {
         this.serviceName = serviceName;
     }
 
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s\n",
+                this.getBookingId(),
+                this.getStartDay(),
+                this.getEndDay(),
+                this.getCustomerId(),
+                this.getServiceId(),
+                this.getServiceName());
     }
 
     @Override
     public String toString() {
-        return "ĐẶT CHỖ - " +
-                "Mã đặt chỗ: " + getBookingId() +
+        return "Mã đặt chỗ: " + getBookingId() +
                 ", Ngày bắt đầu: " + getStartDay() +
                 ", Ngày kết thúc: " + getEndDay() +
                 ", Mã khách hàng: " + getCustomerId() +
-                ", Tên dịch vụ: " + getServiceName() +
-                ", Loại dịch vụ: " + getServiceType();
+                ", Tên dịch vụ: " + getServiceId() +
+                ", Loại dịch vụ: " + getServiceName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return bookingId.equals(booking.bookingId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookingId);
+    }
+
+
+    @Override
+    public int compareTo(Booking o) {
+        return this.bookingId.compareTo(o.bookingId);
     }
 }

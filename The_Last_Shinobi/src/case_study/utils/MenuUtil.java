@@ -15,15 +15,15 @@ public class MenuUtil {
             try {
                 choose = Integer.parseInt(SCANNER.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
             switch (choose) {
                 case 1:
-                    return "nam";
+                    return "Nam";
                 case 2:
-                    return "nữ";
+                    return "Nu";
                 case 3:
-                    return "giới tính thứ 3";
+                    return "Gioi tinh thu 3";
                 default:
                     System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
             }
@@ -41,17 +41,17 @@ public class MenuUtil {
             try {
                 choose = Integer.parseInt(SCANNER.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
             switch (choose) {
                 case 1:
-                    return "trung cấp";
+                    return "Trung cap";
                 case 2:
-                    return "cao đẳng";
+                    return "Cao dang";
                 case 3:
-                    return "đại học";
+                    return "Dai hoc";
                 case 4:
-                    return "sau đại học";
+                    return "Sau dai hoc";
                 default:
                     System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
             }
@@ -71,21 +71,21 @@ public class MenuUtil {
             try {
                 choose = Integer.parseInt(SCANNER.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
             switch (choose) {
                 case 1:
-                    return "lễ tân";
+                    return "Le tan";
                 case 2:
-                    return "phục vụ";
+                    return "Phuc vu";
                 case 3:
-                    return "chuyên viên";
+                    return "Chuyen vien";
                 case 4:
-                    return "giám sát";
+                    return "Giam sat";
                 case 5:
-                    return "quản lý";
+                    return "Quan ly";
                 case 6:
-                    return "giám đốc";
+                    return "Giam doc";
                 default:
                     System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
             }
@@ -104,19 +104,19 @@ public class MenuUtil {
             try {
                 choose = Integer.parseInt(SCANNER.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
             switch (choose) {
                 case 1:
-                    return "Kim cương";
+                    return "Kim cuong";
                 case 2:
-                    return "Bạch kim";
+                    return "Bach kim";
                 case 3:
-                    return "Vàng";
+                    return "Vang";
                 case 4:
-                    return "Bạc";
+                    return "Bac";
                 case 5:
-                    return "Thành viên";
+                    return "Thanh vien";
                 default:
                     System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
             }
@@ -134,17 +134,17 @@ public class MenuUtil {
             try {
                 choose = Integer.parseInt(SCANNER.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
             switch (choose) {
                 case 1:
-                    return "Năm";
+                    return "Nam";
                 case 2:
-                    return "Tháng";
+                    return "Thang";
                 case 3:
-                    return "Ngày";
+                    return "Ngay";
                 case 4:
-                    return "Giờ";
+                    return "Gio";
                 default:
                     System.out.println("Lựa chọn của bạn không tồn tại, vui lòng chọn lại!");
             }

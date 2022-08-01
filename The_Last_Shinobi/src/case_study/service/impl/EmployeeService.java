@@ -1,6 +1,9 @@
 package case_study.service.impl;
 
+import case_study.exception.DuplicateIdException;
+import case_study.exception.IdFormatException;
 import case_study.model.Employee;
+import case_study.model.Link;
 import case_study.service.IEmployeeService;
 import case_study.utils.MenuUtil;
 import case_study.utils.ReadWriteEmployeeFileUtil;
@@ -10,66 +13,66 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeService implements IEmployeeService {
-    private static final String PATH_EMPLOYEE = "src/case_study/data/employee.csv";
     private static final Scanner SCANNER = new Scanner(System.in);
 
     @Override
     public void add() {
-        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(PATH_EMPLOYEE);
-        System.out.print("Nhập mã số nhân viên: ");
-        boolean isExistId;
+        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(Link.PATH_EMPLOYEE.getPath());
+
+        System.out.print("\nNhập mã số nhân viên: ");
         String id;
-        do {
-            isExistId = false;
-            id = SCANNER.nextLine();
-            for (Employee employee : employeeList) {
-                if (id.equals(employee.getId())) {
-                    System.out.println("Mã nhân viên đã tồn tại, vui lòng nhập lại!");
-                    isExistId = true;
-                    break;
+        while (true) {
+            try {
+                id = SCANNER.nextLine();
+                if (!id.matches("^E\\d{4}$")) {
+                    throw new IdFormatException("Mã nhân viên phải đúng định dạng: EXXXX, với XXXX là các số từ 0-9!");
                 }
+
+                for (Employee employee : employeeList) {
+                    if (id.equals(employee.getId())) {
+                        throw new DuplicateIdException("Mã nhân viên đã tồn tại, vui lòng nhập lại!");
+                    }
+                }
+
+                break;
+            } catch (IdFormatException | DuplicateIdException e) {
+                System.out.println(e.getMessage());
             }
-        } while (isExistId);
+        }
 
         System.out.print("Nhập tên nhân viên: ");
-        String name = SCANNER.nextLine();
+        String name = RegexExceptionUtil.getUpperCase();
 
-        String dateOfBirth = RegexExceptionUtil.getDateOfBirth();
+        System.out.print("Nhập ngày sinh nhân viên: ");
+        String dateOfBirth = RegexExceptionUtil.getAge();
 
         String gender = MenuUtil.getGender();
 
         System.out.print("Nhập số CMND nhân viên: ");
-        String idCard = SCANNER.nextLine();
+        String idCard = RegexExceptionUtil.getIdCard();
 
         System.out.print("Nhập số điện thoại nhân viên: ");
-        String phone = SCANNER.nextLine();
+        String phone = RegexExceptionUtil.getPhone();
 
         System.out.print("Nhập email nhân viên: ");
-        String email = SCANNER.nextLine();
+        String email = RegexExceptionUtil.getEmail();
 
         String level = MenuUtil.getLevel();
 
         String position = MenuUtil.getPosition();
 
         System.out.print("Nhập lương nhân viên (VNĐ/tháng): ");
-        int salary;
-        do {
-            try {
-                salary = Integer.parseInt(SCANNER.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
-            }
-        } while (true);
+        int salary = RegexExceptionUtil.getNumberGreaterThan0();
 
         employeeList.add(new Employee(id, name, dateOfBirth, gender, idCard, phone, email, level, position, salary));
-        ReadWriteEmployeeFileUtil.writeEmployeeFile(PATH_EMPLOYEE, employeeList);
+        ReadWriteEmployeeFileUtil.writeEmployeeFile(Link.PATH_EMPLOYEE.getPath(), employeeList);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
     public void display() {
-        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(PATH_EMPLOYEE);
+        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(Link.PATH_EMPLOYEE.getPath());
+        System.out.println("\nDanh sách nhân viên: ");
         for (Employee employee : employeeList) {
             System.out.println(employee);
         }
@@ -77,56 +80,83 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void edit() {
-        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(PATH_EMPLOYEE);
-        System.out.print("Nhập mã số nhân viên cần chỉnh sửa: ");
+        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(Link.PATH_EMPLOYEE.getPath());
+        System.out.print("\nNhập mã số nhân viên cần chỉnh sửa: ");
         String idEdit = SCANNER.nextLine();
         boolean isExist = false;
 
-        for (int i = 0; i < employeeList.size(); i++) {
-            if (idEdit.equals((employeeList.get(i).getId()))) {
+        for (Employee employee : employeeList) {
+            if (idEdit.equals(employee.getId())) {
                 System.out.println("Nhân viên muốn chỉnh sửa: ");
-                System.out.println(employeeList.get(i));
+                System.out.println(employee);
                 System.out.println("Bạn có chắc muốn chỉnh sửa hay không?\n" +
                         "Nhấn phím '1' nếu là CÓ.\n" +
                         "Nhấn phím khác nếu là KHÔNG.");
                 String chooseYesNo = SCANNER.nextLine();
 
                 if (chooseYesNo.equals("1")) {
-                    System.out.print("Nhập tên nhân viên: ");
-                    String name = SCANNER.nextLine();
-
-                    System.out.print("Nhập ngày sinh nhân viên: ");
-                    String dateOfBirth = SCANNER.nextLine();
-
-                    String gender = MenuUtil.getGender();
-
-                    System.out.print("Nhập số CMND nhân viên: ");
-                    String idCard = SCANNER.nextLine();
-
-                    System.out.print("Nhập số điện thoại nhân viên: ");
-                    String phone = SCANNER.nextLine();
-
-                    System.out.print("Nhập email nhân viên: ");
-                    String email = SCANNER.nextLine();
-
-                    String level = MenuUtil.getLevel();
-
-                    String position = MenuUtil.getPosition();
-
-                    System.out.print("Nhập lương nhân viên (VNĐ/tháng): ");
-                    int salary;
                     do {
+                        System.out.println("Chỉnh sửa thông tin nhân viên:\n" +
+                                "1. Chỉnh sửa tên.\n" +
+                                "2. Chỉnh sửa ngày sinh.\n" +
+                                "3. Chỉnh sửa giới tính.\n" +
+                                "4. Chỉnh sửa số CMND.\n" +
+                                "5. Chỉnh sửa số điện thoại.\n" +
+                                "6. Chỉnh sửa email.\n" +
+                                "7. Chỉnh sửa trình độ.\n" +
+                                "8. Chỉnh sửa vị trí.\n" +
+                                "9. Chỉnh sửa lương.\n" +
+                                "10. Kết thúc chỉnh sửa.");
+                        int choose = 0;
                         try {
-                            salary = Integer.parseInt(SCANNER.nextLine());
-                            break;
+                            System.out.print("Mời bạn nhập lựa chọn: ");
+                            choose = Integer.parseInt(SCANNER.nextLine());
                         } catch (NumberFormatException e) {
-                            System.out.println("Vui lòng nhập số!");
+                            e.getStackTrace();
+                        }
+
+                        switch (choose) {
+                            case 1:
+                                System.out.print("Nhập tên nhân viên: ");
+                                employee.setId(RegexExceptionUtil.getUpperCase());
+                                break;
+                            case 2:
+                                System.out.print("Nhập ngày sinh nhân viên: ");
+                                employee.setDateOfBirth(RegexExceptionUtil.getDateFormat());
+                                break;
+                            case 3:
+                                employee.setGender(MenuUtil.getGender());
+                                break;
+                            case 4:
+                                System.out.print("Nhập số CMND nhân viên: ");
+                                employee.setIdCard(RegexExceptionUtil.getIdCard());
+                                break;
+                            case 5:
+                                System.out.print("Nhập số điện thoại nhân viên: ");
+                                employee.setPhone(RegexExceptionUtil.getPhone());
+                                break;
+                            case 6:
+                                System.out.print("Nhập email nhân viên: ");
+                                employee.setEmail(RegexExceptionUtil.getEmail());
+                                break;
+                            case 7:
+                                employee.setLevel(MenuUtil.getLevel());
+                                break;
+                            case 8:
+                                employee.setPosition(MenuUtil.getPosition());
+                                break;
+                            case 9:
+                                System.out.print("Nhập lương nhân viên (VNĐ): ");
+                                employee.setSalary(RegexExceptionUtil.getNumberGreaterThan0());
+                                break;
+                            case 10:
+                                ReadWriteEmployeeFileUtil.writeEmployeeFile(Link.PATH_EMPLOYEE.getPath(), employeeList);
+                                System.out.println("Chỉnh sửa thành công!");
+                                return;
+                            default:
+                                System.out.println("Lựa chọn của bạn không có, vui lòng chọn lại!");
                         }
                     } while (true);
-
-                    employeeList.set(i, new Employee(idEdit, name, dateOfBirth, gender, idCard, phone, email, level, position, salary));
-                    ReadWriteEmployeeFileUtil.writeEmployeeFile(PATH_EMPLOYEE, employeeList);
-                    System.out.println("Chỉnh sửa thành công!");
                 }
 
                 isExist = true;

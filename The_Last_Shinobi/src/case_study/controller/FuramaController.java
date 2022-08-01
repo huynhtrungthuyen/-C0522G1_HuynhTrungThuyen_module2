@@ -13,7 +13,7 @@ public class FuramaController {
         Scanner scanner = new Scanner(System.in);
 
         do {
-            System.out.println("ỨNG DỤNG QUẢN LÝ KHU NGHĨ DƯỠNG FURAMA:\n" +
+            System.out.println("\nỨNG DỤNG QUẢN LÝ KHU NGHĨ DƯỠNG FURAMA:\n" +
                     "1. Quản lý nhân viên.\n" +
                     "2. Quản lý khách hàng.\n" +
                     "3. Quản lý cơ sở.\n" +
@@ -25,7 +25,7 @@ public class FuramaController {
                 System.out.print("Mời bạn nhập lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
 
             switch (choose) {

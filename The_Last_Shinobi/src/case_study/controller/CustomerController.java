@@ -10,7 +10,7 @@ public class CustomerController {
         Scanner scanner = new Scanner(System.in);
         ICustomerService iCustomerService = new CustomerService();
         do {
-            System.out.println("QUẢN LÝ KHÁCH HÀNG:\n" +
+            System.out.println("\nQUẢN LÝ KHÁCH HÀNG:\n" +
                     "1. Hiển thị danh sách khách hàng.\n" +
                     "2. Thêm mới khách hàng.\n" +
                     "3. Chỉnh sửa khách hàng.\n" +
@@ -20,7 +20,7 @@ public class CustomerController {
                 System.out.print("Mời bạn nhập lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
 
             switch (choose) {

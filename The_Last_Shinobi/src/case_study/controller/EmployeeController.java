@@ -10,7 +10,7 @@ public class EmployeeController {
         Scanner scanner = new Scanner(System.in);
         IEmployeeService iEmployeeService = new EmployeeService();
         do {
-            System.out.println("QUẢN LÝ NHÂN VIÊN:\n" +
+            System.out.println("\nQUẢN LÝ NHÂN VIÊN:\n" +
                     "1. Hiển thị danh sách nhân viên.\n" +
                     "2. Thêm mới nhân viên.\n" +
                     "3. Chỉnh sửa nhân viên.\n" +
@@ -20,7 +20,7 @@ public class EmployeeController {
                 System.out.print("Mời bạn nhập lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
 
             switch (choose) {

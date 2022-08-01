@@ -27,5 +27,9 @@ public class Team {
         System.out.println(dateFormat.parse(dateOfBirth).getTime());
         System.out.println(date.getTime());
         System.out.println(age);
+
+        long start1 = new SimpleDateFormat("dd/MM/yyyy").parse("05/08/2022").getTime();
+        long start2 = new SimpleDateFormat("dd/MM/yyyy").parse("16/08/2022").getTime();
+        System.out.println(start1 < start2);
     }
 }

@@ -10,7 +10,7 @@ public class FacilityController {
         Scanner scanner = new Scanner(System.in);
         IFacilityService iFacilityService = new FacilityService();
         do {
-            System.out.println("QUẢN LÝ CƠ SỞ:\n" +
+            System.out.println("\nQUẢN LÝ CƠ SỞ:\n" +
                     "1. Hiển thị cơ sở.\n" +
                     "2. Thêm mới cơ sở.\n" +
                     "3. Hiển thị danh sách bảo trì cơ sở.\n" +
@@ -20,7 +20,7 @@ public class FacilityController {
                 System.out.print("Mời bạn nhập lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
 
             switch (choose) {

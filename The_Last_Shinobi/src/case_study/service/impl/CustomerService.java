@@ -1,6 +1,9 @@
 package case_study.service.impl;
 
+import case_study.exception.DuplicateIdException;
+import case_study.exception.IdFormatException;
 import case_study.model.Customer;
+import case_study.model.Link;
 import case_study.service.ICustomerService;
 import case_study.utils.MenuUtil;
 import case_study.utils.ReadWriteCustomerFileUtil;
@@ -10,56 +13,64 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerService implements ICustomerService {
-    private static final String PATH_CUSTOMER = "src/case_study/data/customer.csv";
     private static final Scanner SCANNER = new Scanner(System.in);
 
     @Override
     public void add() {
-        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(PATH_CUSTOMER);
-        System.out.print("Nhập mã số khách hàng: ");
-        boolean isExistId;
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(Link.PATH_CUSTOMER.getPath());
+
+        System.out.print("\nNhập mã số khách hàng: ");
         String id;
-        do {
-            isExistId = false;
-            id = SCANNER.nextLine();
-            for (Customer customer : customerList) {
-                if (id.equals(customer.getId())) {
-                    System.out.println("Mã khách hàng đã tồn tại, vui lòng nhập lại!");
-                    isExistId = true;
-                    break;
+        while (true) {
+            try {
+                id = SCANNER.nextLine();
+                if (!id.matches("^C\\d{4}$")) {
+                    throw new IdFormatException("Mã khách hàng phải đúng định dạng: CXXXX, với XXXX là các số từ 0-9, vui lòng nhập lại!");
                 }
+
+                for (Customer customer : customerList) {
+                    if (id.equals(customer.getId())) {
+                        throw new DuplicateIdException("Mã khách hàng đã tồn tại, vui lòng nhập lại!");
+                    }
+                }
+
+                break;
+            } catch (IdFormatException | DuplicateIdException e) {
+                System.out.println(e.getMessage());
             }
-        } while (isExistId);
+        }
 
         System.out.print("Nhập tên khách hàng: ");
-        String name = SCANNER.nextLine();
+        String name = RegexExceptionUtil.getUpperCase();
 
-        String dateOfBirth = RegexExceptionUtil.getDateOfBirth();
+        System.out.print("Nhập ngày sinh khách hàng: ");
+        String dateOfBirth = RegexExceptionUtil.getAge();
 
         String gender = MenuUtil.getGender();
 
         System.out.print("Nhập số CMND khách hàng: ");
-        String idCard = SCANNER.nextLine();
+        String idCard = RegexExceptionUtil.getIdCard();
 
         System.out.print("Nhập số điện thoại khách hàng: ");
-        String phone = SCANNER.nextLine();
+        String phone = RegexExceptionUtil.getPhone();
 
         System.out.print("Nhập email khách hàng: ");
-        String email = SCANNER.nextLine();
+        String email = RegexExceptionUtil.getEmail();
 
         String customerType = MenuUtil.getCustomerType();
 
         System.out.print("Nhập địa chỉ khách hàng: ");
-        String address = SCANNER.nextLine();
+        String address = RegexExceptionUtil.getUpperCase();
 
         customerList.add(new Customer(id, name, dateOfBirth, gender, idCard, phone, email, customerType, address));
-        ReadWriteCustomerFileUtil.writeCustomerFile(PATH_CUSTOMER, customerList);
+        ReadWriteCustomerFileUtil.writeCustomerFile(Link.PATH_CUSTOMER.getPath(), customerList);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
     public void display() {
-        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(PATH_CUSTOMER);
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(Link.PATH_CUSTOMER.getPath());
+        System.out.println("\nDanh sách khách hàng: ");
         for (Customer customer : customerList) {
             System.out.println(customer);
         }
@@ -67,46 +78,79 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void edit() {
-        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(PATH_CUSTOMER);
-        System.out.print("Nhập mã số khách hàng cần chỉnh sửa: ");
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(Link.PATH_CUSTOMER.getPath());
+        System.out.print("\nNhập mã số khách hàng cần chỉnh sửa: ");
         String idEdit = SCANNER.nextLine();
         boolean isExist = false;
 
-        for (int i = 0; i < customerList.size(); i++) {
-            if (idEdit.equals((customerList.get(i).getId()))) {
+        for (Customer customer : customerList) {
+            if (idEdit.equals(customer.getId())) {
                 System.out.println("Khách hàng muốn chỉnh sửa: ");
-                System.out.println(customerList.get(i));
+                System.out.println(customer);
                 System.out.println("Bạn có chắc muốn chỉnh sửa hay không?\n" +
                         "Nhấn phím '1' nếu là CÓ.\n" +
                         "Nhấn phím khác nếu là KHÔNG.");
                 String chooseYesNo = SCANNER.nextLine();
 
                 if (chooseYesNo.equals("1")) {
-                    System.out.print("Nhập tên khách hàng: ");
-                    String name = SCANNER.nextLine();
+                    do {
+                        System.out.println("Chỉnh sửa thông tin khách hàng:\n" +
+                                "1. Chỉnh sửa tên.\n" +
+                                "2. Chỉnh sửa ngày sinh.\n" +
+                                "3. Chỉnh sửa giới tính.\n" +
+                                "4. Chỉnh sửa số CMND.\n" +
+                                "5. Chỉnh sửa số điện thoại.\n" +
+                                "6. Chỉnh sửa email.\n" +
+                                "7. Chỉnh sửa loại khách hàng.\n" +
+                                "8. Chỉnh sửa địa chỉ.\n" +
+                                "9. Kết thúc chỉnh sửa.");
+                        int choose = 0;
+                        try {
+                            System.out.print("Mời bạn nhập lựa chọn: ");
+                            choose = Integer.parseInt(SCANNER.nextLine());
+                        } catch (NumberFormatException e) {
+                            e.getStackTrace();
+                        }
 
-                    System.out.print("Nhập ngày sinh khách hàng: ");
-                    String dateOfBirth = SCANNER.nextLine();
-
-                    String gender = MenuUtil.getGender();
-
-                    System.out.print("Nhập số CMND khách hàng: ");
-                    String idCard = SCANNER.nextLine();
-
-                    System.out.print("Nhập số điện thoại khách hàng: ");
-                    String phone = SCANNER.nextLine();
-
-                    System.out.print("Nhập email khách hàng: ");
-                    String email = SCANNER.nextLine();
-
-                    String customerType = MenuUtil.getCustomerType();
-
-                    System.out.print("Nhập địa chỉ khách hàng: ");
-                    String address = SCANNER.nextLine();
-
-                    customerList.set(i, new Customer(idEdit, name, dateOfBirth, gender, idCard, phone, email, customerType, address));
-                    ReadWriteCustomerFileUtil.writeCustomerFile(PATH_CUSTOMER, customerList);
-                    System.out.println("Chỉnh sửa thành công!");
+                        switch (choose) {
+                            case 1:
+                                System.out.print("Nhập tên khách hàng: ");
+                                customer.setId(RegexExceptionUtil.getUpperCase());
+                                break;
+                            case 2:
+                                System.out.print("Nhập ngày sinh khách hàng: ");
+                                customer.setDateOfBirth(RegexExceptionUtil.getDateFormat());
+                                break;
+                            case 3:
+                                customer.setGender(MenuUtil.getGender());
+                                break;
+                            case 4:
+                                System.out.print("Nhập số CMND khách hàng: ");
+                                customer.setIdCard(RegexExceptionUtil.getIdCard());
+                                break;
+                            case 5:
+                                System.out.print("Nhập số điện thoại khách hàng: ");
+                                customer.setPhone(RegexExceptionUtil.getPhone());
+                                break;
+                            case 6:
+                                System.out.print("Nhập email khách hàng: ");
+                                customer.setEmail(RegexExceptionUtil.getEmail());
+                                break;
+                            case 7:
+                                customer.setCustomerType(MenuUtil.getCustomerType());
+                                break;
+                            case 8:
+                                System.out.print("Nhập địa chỉ khách hàng: ");
+                                customer.setAddress(RegexExceptionUtil.getUpperCase());
+                                break;
+                            case 9:
+                                ReadWriteCustomerFileUtil.writeCustomerFile(Link.PATH_CUSTOMER.getPath(), customerList);
+                                System.out.println("Chỉnh sửa thành công!");
+                                return;
+                            default:
+                                System.out.println("Lựa chọn của bạn không có, vui lòng chọn lại!");
+                        }
+                    } while (true);
                 }
 
                 isExist = true;
