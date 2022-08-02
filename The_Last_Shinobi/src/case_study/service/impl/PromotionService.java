@@ -38,30 +38,34 @@ public class PromotionService implements IPromotionService {
             }
         }
 
-        facilitySet.removeIf(facility -> !facility.getRentalType().equals("Nam"));
-
-        for (Booking booking : bookingList) {
-            String[] arr = booking.getStartDay().split("/");
-            if (!arr[2].equals(year)) {
-                bookingList.remove(booking);
+        List<String> serviceIdFacilityList = new ArrayList<>();
+        for (Facility facility : facilitySet) {
+            if (facility.getRentalType().equals("Nam")) {
+                serviceIdFacilityList.add(facility.getServiceId());
             }
         }
 
         List<String> customerIdList = new ArrayList<>();
-
-        for (Facility facility : facilitySet) {
-            for (Booking booking : bookingList) {
-                if (facility.getServiceId().equals(booking.getServiceId())) {
-                    customerIdList.add(booking.getCustomerId());
+        for (Booking booking : bookingList) {
+            String[] arr = booking.getStartDay().split("/");
+            if (year.equals(arr[2])) {
+                for (String serviceIdFacility : serviceIdFacilityList) {
+                    if (booking.getServiceId().equals(serviceIdFacility)) {
+                        customerIdList.add(booking.getCustomerId());
+                    }
                 }
             }
         }
 
-        System.out.println("Danh sách khách hàng đã sử dụng dịch vụ theo năm: ");
-        for (Customer customer : customerList) {
-            for (String customerId : customerIdList) {
-                if (customer.getId().equals(customerId)) {
-                    System.out.println(customer);
+        if (customerIdList.isEmpty()) {
+            System.out.println("Không tìm thấy khách hàng sử dụng dịch vụ theo năm (trong năm " + year + "): ");
+        } else {
+            System.out.println("Danh sách khách hàng đã sử dụng dịch vụ theo năm (trong năm " + year + "): ");
+            for (Customer customer : customerList) {
+                for (String customerId : customerIdList) {
+                    if (customer.getId().equals(customerId)) {
+                        System.out.println(customer);
+                    }
                 }
             }
         }
