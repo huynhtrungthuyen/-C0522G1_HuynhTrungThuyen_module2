@@ -109,7 +109,7 @@ public class FacilityService implements IFacilityService {
                     inputFacility(villa);
 
                     System.out.print("Nhập tiêu chuẩn phòng: ");
-                    String roomStandardVilla = RegexExceptionUtil.getRoomStandard();
+                    String roomStandardVilla = RegexExceptionUtil.getUpperCaseFirstWord();
 
                     System.out.print("Nhập diện tích hồ bơi (m2): ");
                     double poolArea = RegexExceptionUtil.getAreaUse();
@@ -131,7 +131,7 @@ public class FacilityService implements IFacilityService {
                     inputFacility(house);
 
                     System.out.print("Nhập tiêu chuẩn phòng: ");
-                    String roomStandardHouse = RegexExceptionUtil.getRoomStandard();
+                    String roomStandardHouse = RegexExceptionUtil.getUpperCaseFirstWord();
 
                     System.out.print("Nhập số tầng: ");
                     int numberOfFloorsHouse = RegexExceptionUtil.getNumberGreaterThan0();
@@ -149,7 +149,7 @@ public class FacilityService implements IFacilityService {
                     inputFacility(room);
 
                     System.out.print("Nhập dịch vụ miễn phí đi kèm: ");
-                    String freeServiceIncluded = SCANNER.nextLine();
+                    String freeServiceIncluded = RegexExceptionUtil.getUpperCaseFirstWord();
 
                     room.setFreeServiceIncluded(freeServiceIncluded);
                     roomList.put(room, 0);

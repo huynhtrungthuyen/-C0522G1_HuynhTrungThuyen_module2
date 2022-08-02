@@ -41,7 +41,7 @@ public class EmployeeService implements IEmployeeService {
         }
 
         System.out.print("Nhập tên nhân viên: ");
-        String name = RegexExceptionUtil.getUpperCase();
+        String name = RegexExceptionUtil.getUpperCaseName();
 
         System.out.print("Nhập ngày sinh nhân viên: ");
         String dateOfBirth = RegexExceptionUtil.getAge();
@@ -118,7 +118,7 @@ public class EmployeeService implements IEmployeeService {
                         switch (choose) {
                             case 1:
                                 System.out.print("Nhập tên nhân viên: ");
-                                employee.setId(RegexExceptionUtil.getUpperCase());
+                                employee.setId(RegexExceptionUtil.getUpperCaseName());
                                 break;
                             case 2:
                                 System.out.print("Nhập ngày sinh nhân viên: ");

@@ -1,11 +1,15 @@
 package case_study.utils;
 
 import case_study.exception.*;
+import case_study.model.Customer;
+import case_study.model.Employee;
+import case_study.model.Link;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class RegexExceptionUtil {
@@ -77,12 +81,12 @@ public class RegexExceptionUtil {
         }
     }
 
-    public static String getUpperCase() {
-        String name;
+    public static String getUpperCaseName() {
+        String str;
         while (true) {
             try {
-                name = SCANNER.nextLine();
-                if (!name.matches("^[A-Z][a-z]+( [A-Z][a-z]+)+$")) {
+                str = SCANNER.nextLine();
+                if (!str.matches("^[A-Z][a-z]+( [A-Z][a-z]+)+$")) {
                     throw new TextFormatException("Phải viết hoa những chữ cái đầu, vui lòng nhập lại!");
                 }
 
@@ -92,10 +96,12 @@ public class RegexExceptionUtil {
             }
         }
 
-        return name;
+        return str;
     }
 
     public static String getIdCard() {
+        List<Employee> employeeList = ReadWriteEmployeeFileUtil.readEmployeeFile(Link.PATH_EMPLOYEE.getPath());
+        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(Link.PATH_CUSTOMER.getPath());
         String idCard;
         while (true) {
             try {
@@ -104,8 +110,20 @@ public class RegexExceptionUtil {
                     throw new NumberRegexInvalidException("Số CMND/CCCD phải bao gồm 9 hoặc 12 chữ số từ 0-9, vui lòng nhập lại!");
                 }
 
+                for (Employee employee : employeeList) {
+                    if (idCard.equals(employee.getIdCard())) {
+                        throw new DuplicateIdException("Số CMND/CCCD đã tồn tại, vui lòng nhập lại!");
+                    }
+                }
+
+                for (Customer customer : customerList) {
+                    if (idCard.equals(customer.getIdCard())) {
+                        throw new DuplicateIdException("Số CMND/CCCD đã tồn tại, vui lòng nhập lại!");
+                    }
+                }
+
                 break;
-            } catch (NumberRegexInvalidException e) {
+            } catch (NumberRegexInvalidException | DuplicateIdException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -210,13 +228,13 @@ public class RegexExceptionUtil {
         return maxNumberOfPeople;
     }
 
-    public static String getRoomStandard() {
-        String roomStandard;
+    public static String getUpperCaseFirstWord() {
+        String str;
         while (true) {
             try {
-                roomStandard = SCANNER.nextLine();
-                if (!roomStandard.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
-                    throw new TextFormatException("Tiêu chuẩn phòng phải viết hoa ký tự đầu, các ký tự sau là ký tự bình thường!");
+                str = SCANNER.nextLine();
+                if (!str.matches("^[A-Z][a-z]+( [a-z]+)*$")) {
+                    throw new TextFormatException("Cần viết hoa ký tự đầu, các ký tự sau là ký tự bình thường, vui lòng nhập lại!");
                 }
 
                 break;
@@ -225,6 +243,6 @@ public class RegexExceptionUtil {
             }
         }
 
-        return roomStandard;
+        return str;
     }
 }

@@ -41,7 +41,7 @@ public class CustomerService implements ICustomerService {
         }
 
         System.out.print("Nhập tên khách hàng: ");
-        String name = RegexExceptionUtil.getUpperCase();
+        String name = RegexExceptionUtil.getUpperCaseName();
 
         System.out.print("Nhập ngày sinh khách hàng: ");
         String dateOfBirth = RegexExceptionUtil.getAge();
@@ -60,7 +60,7 @@ public class CustomerService implements ICustomerService {
         String customerType = MenuUtil.getCustomerType();
 
         System.out.print("Nhập địa chỉ khách hàng: ");
-        String address = RegexExceptionUtil.getUpperCase();
+        String address = RegexExceptionUtil.getUpperCaseName();
 
         customerList.add(new Customer(id, name, dateOfBirth, gender, idCard, phone, email, customerType, address));
         ReadWriteCustomerFileUtil.writeCustomerFile(Link.PATH_CUSTOMER.getPath(), customerList);
@@ -115,7 +115,7 @@ public class CustomerService implements ICustomerService {
                         switch (choose) {
                             case 1:
                                 System.out.print("Nhập tên khách hàng: ");
-                                customer.setId(RegexExceptionUtil.getUpperCase());
+                                customer.setId(RegexExceptionUtil.getUpperCaseName());
                                 break;
                             case 2:
                                 System.out.print("Nhập ngày sinh khách hàng: ");
@@ -141,7 +141,7 @@ public class CustomerService implements ICustomerService {
                                 break;
                             case 8:
                                 System.out.print("Nhập địa chỉ khách hàng: ");
-                                customer.setAddress(RegexExceptionUtil.getUpperCase());
+                                customer.setAddress(RegexExceptionUtil.getUpperCaseName());
                                 break;
                             case 9:
                                 ReadWriteCustomerFileUtil.writeCustomerFile(Link.PATH_CUSTOMER.getPath(), customerList);
