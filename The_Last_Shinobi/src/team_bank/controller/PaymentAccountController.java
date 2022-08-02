@@ -1,16 +1,16 @@
-package bank_account.controller;
+package team_bank.controller;
 
-import bank_account.service.ISavingBankAccountService;
-import bank_account.service.impl.SavingBankAccountService;
+import team_bank.service.IPaymentBankAccountService;
+import team_bank.service.impl.PaymentBankAccountService;
 
 import java.util.Scanner;
 
-public class SavingAccountController {
-    public void menuSaving() {
+public class PaymentAccountController {
+    public void menuPayment() {
         Scanner scanner = new Scanner(System.in);
-        ISavingBankAccountService iSavingBankAccountService = new SavingBankAccountService();
+        IPaymentBankAccountService iPaymentBankAccountService = new PaymentBankAccountService();
         do {
-            System.out.println("Quản lí tài khoản tiết kiệm: \n" +
+            System.out.println("Quản lí tài khoản thanh toán: \n" +
                     "1. Thêm mới tài khoản. \n" +
                     "2. Xóa tài khoản. \n" +
                     "3. Xem danh sách tài khoản. \n" +
@@ -25,16 +25,16 @@ public class SavingAccountController {
             }
             switch (choose) {
                 case 1:
-                    iSavingBankAccountService.add();
+                    iPaymentBankAccountService.add();
                     break;
                 case 2:
-                    iSavingBankAccountService.remove();
+                    iPaymentBankAccountService.remove();
                     break;
                 case 3:
-                    iSavingBankAccountService.display();
+                    iPaymentBankAccountService.display();
                     break;
                 case 4:
-                    iSavingBankAccountService.find();
+                    iPaymentBankAccountService.find();
                     break;
                 case 5:
                     return;

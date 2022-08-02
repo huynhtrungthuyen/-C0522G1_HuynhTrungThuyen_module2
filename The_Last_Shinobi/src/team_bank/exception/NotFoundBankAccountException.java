@@ -1,4 +1,4 @@
-package bank_account.exception;
+package team_bank.exception;
 
 public class NotFoundBankAccountException extends Exception {
     public NotFoundBankAccountException(String message) {

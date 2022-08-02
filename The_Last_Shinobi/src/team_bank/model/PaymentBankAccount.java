@@ -1,4 +1,4 @@
-package bank_account.model;
+package team_bank.model;
 
 public class PaymentBankAccount extends BankAccount {
     private int cardNumber;

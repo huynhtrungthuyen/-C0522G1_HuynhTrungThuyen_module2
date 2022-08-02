@@ -1,8 +1,8 @@
-package bank_account.utils;
+package team_bank.utils;
 
-import bank_account.model.BankAccount;
-import bank_account.model.PaymentBankAccount;
-import bank_account.model.SavingBankAccount;
+import team_bank.model.BankAccount;
+import team_bank.model.PaymentBankAccount;
+import team_bank.model.SavingBankAccount;
 
 import java.io.*;
 import java.util.ArrayList;

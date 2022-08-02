@@ -1,4 +1,4 @@
-package bank_account.model;
+package team_bank.model;
 
 public class SavingBankAccount extends BankAccount {
     private int moneySaving;

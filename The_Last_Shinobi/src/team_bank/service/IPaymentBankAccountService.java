@@ -1,4 +1,4 @@
-package bank_account.service;
+package team_bank.service;
 
 public interface IPaymentBankAccountService extends IBankAccountService {
 }

@@ -1,4 +1,4 @@
-package bank_account.controller;
+package team_bank.controller;
 
 import java.util.Scanner;
 

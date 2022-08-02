@@ -1,22 +1,22 @@
-package bank_account.service.impl;
+package team_bank.service.impl;
 
-import bank_account.exception.NotFoundBankAccountException;
-import bank_account.exception.NumberInvalidException;
-import bank_account.model.BankAccount;
-import bank_account.model.SavingBankAccount;
-import bank_account.service.ISavingBankAccountService;
-import bank_account.utils.ReadWriteBankAccountUtil;
+import team_bank.exception.NotFoundBankAccountException;
+import team_bank.exception.NumberInvalidException;
+import team_bank.model.BankAccount;
+import team_bank.model.PaymentBankAccount;
+import team_bank.service.IPaymentBankAccountService;
+import team_bank.utils.ReadWriteBankAccountUtil;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class SavingBankAccountService implements ISavingBankAccountService {
+public class PaymentBankAccountService implements IPaymentBankAccountService {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final String PATH_SAVING = "src/bank_account/data/saving_account.csv";
+    private static final String PATH_PAYMENT = "src/bank_account/data/payment_account.csv";
 
     @Override
     public void add() {
-        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_SAVING);
+        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_PAYMENT);
 
         int id = bankAccountList.get(bankAccountList.size() - 1).getId() + 1;
 
@@ -29,12 +29,12 @@ public class SavingBankAccountService implements ISavingBankAccountService {
         System.out.println("Nhập ngày tạo tài khoản: ");
         String date = SCANNER.nextLine();
 
-        System.out.print("Nhập số tiền gửi tiết kiệm (VNĐ): ");
-        int moneySaving;
+        System.out.print("Nhập số tài khoản: ");
+        int cardNumber;
         do {
             try {
-                moneySaving = Integer.parseInt(SCANNER.nextLine());
-                if (moneySaving <= 0) {
+                cardNumber = Integer.parseInt(SCANNER.nextLine());
+                if (cardNumber <= 0) {
                     throw new NumberInvalidException("Vui lòng nhập số dương!");
                 }
                 break;
@@ -45,15 +45,12 @@ public class SavingBankAccountService implements ISavingBankAccountService {
             }
         } while (true);
 
-        System.out.println("Nhập ngày gửi: ");
-        String dateSaving = SCANNER.nextLine();
-
-        System.out.println("Nhập lãi suất (%): ");
-        double interestRate;
+        System.out.println("Nhập số tiền trong tài khoản (VNĐ): ");
+        int money;
         do {
             try {
-                interestRate = Double.parseDouble(SCANNER.nextLine());
-                if (interestRate <= 0) {
+                money = Integer.parseInt(SCANNER.nextLine());
+                if (money <= 0) {
                     throw new NumberInvalidException("Vui lòng nhập số dương!");
                 }
                 break;
@@ -64,34 +61,18 @@ public class SavingBankAccountService implements ISavingBankAccountService {
             }
         } while (true);
 
-        System.out.println("Nhập kì hạn (tháng): ");
-        int time;
-        do {
-            try {
-                time = Integer.parseInt(SCANNER.nextLine());
-                if (time <= 0) {
-                    throw new NumberInvalidException("Vui lòng nhập số dương!");
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
-            } catch (NumberInvalidException e) {
-                System.out.println(e.getMessage());
-            }
-        } while (true);
-
-        bankAccountList.add(new SavingBankAccount(id, code, name, date, moneySaving, dateSaving, interestRate, time));
-        ReadWriteBankAccountUtil.writeBankAccountFile(PATH_SAVING, bankAccountList);
+        bankAccountList.add(new PaymentBankAccount(id, code, name, date, cardNumber, money));
+        ReadWriteBankAccountUtil.writeBankAccountFile(PATH_PAYMENT, bankAccountList);
         System.out.println("Thêm mới thành công!");
     }
 
     @Override
     public void remove() {
-        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_SAVING);
+        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_PAYMENT);
         boolean isExist = false;
         String codeRemove;
 
-        do {
+         do {
             System.out.println("Mời bạn nhập mã tài khoản cần xóa: ");
             codeRemove = SCANNER.nextLine();
 
@@ -106,7 +87,7 @@ public class SavingBankAccountService implements ISavingBankAccountService {
 
                     if (chooseYesNo.equals("1")) {
                         bankAccountList.remove(bankAccount);
-                        ReadWriteBankAccountUtil.writeBankAccountFile(PATH_SAVING, bankAccountList);
+                        ReadWriteBankAccountUtil.writeBankAccountFile(PATH_PAYMENT, bankAccountList);
                         System.out.println("Xóa thành công!");
                     }
                     isExist = true;
@@ -126,7 +107,7 @@ public class SavingBankAccountService implements ISavingBankAccountService {
 
     @Override
     public void display() {
-        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_SAVING);
+        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_PAYMENT);
         for (BankAccount bankAccount : bankAccountList) {
             System.out.println(bankAccount);
         }
@@ -134,7 +115,7 @@ public class SavingBankAccountService implements ISavingBankAccountService {
 
     @Override
     public void find() {
-        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_SAVING);
+        List<BankAccount> bankAccountList = ReadWriteBankAccountUtil.readBankAccountFile(PATH_PAYMENT);
 
         System.out.println("Mời bạn nhập mã tài khoản hoặc tên chủ tài khoản cần tìm kiếm: ");
         String find = SCANNER.nextLine();
