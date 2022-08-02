@@ -62,7 +62,7 @@ public class RegexExceptionUtil {
         while (true) {
             try {
                 dateOfBirth = getDateFormat();
-                age = (double) (date.getTime() - dateFormat.parse(dateOfBirth).getTime())/315576E5;
+                age = (double) (date.getTime() - dateFormat.parse(dateOfBirth).getTime()) / 315576E5;
                 if (age < 18 || age > 100) {
                     throw new DateInvalidException("Ngày sinh phải nhỏ hơn ngày hiện tại 18 năm và người dùng không được quá 100 tuổi!");
                 }
@@ -100,8 +100,8 @@ public class RegexExceptionUtil {
         while (true) {
             try {
                 idCard = SCANNER.nextLine();
-                if (!idCard.matches("^\\d{9}$")) {
-                    throw new NumberRegexInvalidException("Số CMND phải bao gồm 9 chữ số từ 0-9, vui lòng nhập lại!");
+                if (!idCard.matches("^\\d{9}|\\d{12}$")) {
+                    throw new NumberRegexInvalidException("Số CMND/CCCD phải bao gồm 9 hoặc 12 chữ số từ 0-9, vui lòng nhập lại!");
                 }
 
                 break;
@@ -136,7 +136,8 @@ public class RegexExceptionUtil {
         while (true) {
             try {
                 email = SCANNER.nextLine();
-                if (!email.matches("^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$")) {
+//                if (!email.matches("^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$")) {
+                if (!email.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]{2,}(\\.[A-Za-z0-9]{2,}){1,2}$")) {
                     throw new TextFormatException("Sai định dạng email, vui lòng nhập lại!");
                 }
 

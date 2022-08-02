@@ -1,11 +1,14 @@
 package case_study.utils;
 
-import case_study.model.Booking;
+import case_study.model.Contract;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
-public class ReadWriteBookingFileUtil {
+public class ReadWriteContractFileUtil {
     private static List<String> readFile(String path) {
         List<String> stringList = new ArrayList<>();
         String line;
@@ -26,18 +29,18 @@ public class ReadWriteBookingFileUtil {
         return stringList;
     }
 
-    public static TreeSet<Booking> readBookingFile(String path) {
+    public static Queue<Contract> readContractFile(String path) {
         List<String> stringList = readFile(path);
-        TreeSet<Booking> bookingList = new TreeSet<>();
+        Queue<Contract> contractList = new LinkedList<>();
         String[] info;
         for (String line : stringList) {
             info = line.split(",");
-            if (info.length == 6) {
-                bookingList.add(new Booking(info[0], info[1], info[2], info[3], info[4], info[5]));
+            if (info.length == 5) {
+                contractList.add(new Contract(info[0], info[1], Integer.parseInt(info[2]), Integer.parseInt(info[3]), info[4]));
             }
         }
 
-        return bookingList;
+        return contractList;
     }
 
     private static void writeFile(String path, String data) {
@@ -52,10 +55,10 @@ public class ReadWriteBookingFileUtil {
         }
     }
 
-    public static void writeBookingFile(String path, TreeSet<Booking> bookingList) {
+    public static void writeContractFile(String path, Queue<Contract> contractList) {
         StringBuilder data = new StringBuilder();
-        for (Booking booking : bookingList) {
-            data.append(booking.getInfo());
+        for (Contract contract : contractList) {
+            data.append(contract.getInfo());
         }
 
         writeFile(path, data.toString());

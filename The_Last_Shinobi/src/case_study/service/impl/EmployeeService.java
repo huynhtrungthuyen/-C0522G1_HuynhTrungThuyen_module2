@@ -48,7 +48,7 @@ public class EmployeeService implements IEmployeeService {
 
         String gender = MenuUtil.getGender();
 
-        System.out.print("Nhập số CMND nhân viên: ");
+        System.out.print("Nhập số CMND/CCCD nhân viên: ");
         String idCard = RegexExceptionUtil.getIdCard();
 
         System.out.print("Nhập số điện thoại nhân viên: ");
@@ -90,8 +90,8 @@ public class EmployeeService implements IEmployeeService {
                 System.out.println("Nhân viên muốn chỉnh sửa: ");
                 System.out.println(employee);
                 System.out.println("Bạn có chắc muốn chỉnh sửa hay không?\n" +
-                        "Nhấn phím '1' nếu là CÓ.\n" +
-                        "Nhấn phím khác nếu là KHÔNG.");
+                        " 1. Nhấn phím '1' nếu là CÓ.\n" +
+                        " 2. Nhấn phím khác nếu là KHÔNG.");
                 String chooseYesNo = SCANNER.nextLine();
 
                 if (chooseYesNo.equals("1")) {
@@ -128,7 +128,7 @@ public class EmployeeService implements IEmployeeService {
                                 employee.setGender(MenuUtil.getGender());
                                 break;
                             case 4:
-                                System.out.print("Nhập số CMND nhân viên: ");
+                                System.out.print("Nhập số CMND/CCCD nhân viên: ");
                                 employee.setIdCard(RegexExceptionUtil.getIdCard());
                                 break;
                             case 5:

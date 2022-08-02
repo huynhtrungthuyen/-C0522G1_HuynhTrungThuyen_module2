@@ -25,8 +25,8 @@ public class DateComparatorUtil implements Comparator<Booking> {
         }
 
         try {
-            long end1 = new SimpleDateFormat("dd/MM/yyyy").parse(o1.getStartDay()).getTime();
-            long end2 = new SimpleDateFormat("dd/MM/yyyy").parse(o2.getStartDay()).getTime();
+            long end1 = new SimpleDateFormat("dd/MM/yyyy").parse(o1.getEndDay()).getTime();
+            long end2 = new SimpleDateFormat("dd/MM/yyyy").parse(o2.getEndDay()).getTime();
 
             if (end1 > end2) {
                 return 1;

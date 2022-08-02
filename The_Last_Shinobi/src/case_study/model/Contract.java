@@ -1,16 +1,16 @@
 package case_study.model;
 
 public class Contract {
-    private int numberContract;
-    private int bookingId;
+    private String numberContract;
+    private String bookingId;
     private int depositMoney;
     private int sumMoney;
-    private int customerId;
+    private String customerId;
 
     public Contract() {
     }
 
-    public Contract(int numberContract, int bookingId, int depositMoney, int sumMoney, int customerId) {
+    public Contract(String numberContract, String bookingId, int depositMoney, int sumMoney, String customerId) {
         this.numberContract = numberContract;
         this.bookingId = bookingId;
         this.depositMoney = depositMoney;
@@ -18,19 +18,19 @@ public class Contract {
         this.customerId = customerId;
     }
 
-    public int getNumberContract() {
+    public String getNumberContract() {
         return numberContract;
     }
 
-    public void setNumberContract(int numberContract) {
+    public void setNumberContract(String numberContract) {
         this.numberContract = numberContract;
     }
 
-    public int getBookingId() {
+    public String getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(int bookingId) {
+    public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 
@@ -50,12 +50,21 @@ public class Contract {
         this.sumMoney = sumMoney;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s\n",
+                this.getNumberContract(),
+                this.getBookingId(),
+                this.getDepositMoney(),
+                this.getSumMoney(),
+                this.getCustomerId());
     }
 
     @Override

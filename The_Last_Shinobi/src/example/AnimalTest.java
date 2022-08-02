@@ -12,6 +12,7 @@ public class AnimalTest {
         Animal cat = new Animal(11, "cat");
         Animal fish = new Animal(2, "fish");
         Animal chicken = new Animal(9, "chicken");
+        Animal dog1 = new Animal(15, "dog");
 
         animals.add(dog);
         animals.add(cat);
@@ -23,5 +24,7 @@ public class AnimalTest {
         for (Animal animal : animals) {
             System.out.println(animal);
         }
+
+        System.out.println(dog.equals(dog1));
     }
 }

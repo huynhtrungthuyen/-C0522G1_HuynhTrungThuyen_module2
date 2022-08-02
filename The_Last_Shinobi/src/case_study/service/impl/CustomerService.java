@@ -48,7 +48,7 @@ public class CustomerService implements ICustomerService {
 
         String gender = MenuUtil.getGender();
 
-        System.out.print("Nhập số CMND khách hàng: ");
+        System.out.print("Nhập số CMND/CCCD khách hàng: ");
         String idCard = RegexExceptionUtil.getIdCard();
 
         System.out.print("Nhập số điện thoại khách hàng: ");
@@ -88,8 +88,8 @@ public class CustomerService implements ICustomerService {
                 System.out.println("Khách hàng muốn chỉnh sửa: ");
                 System.out.println(customer);
                 System.out.println("Bạn có chắc muốn chỉnh sửa hay không?\n" +
-                        "Nhấn phím '1' nếu là CÓ.\n" +
-                        "Nhấn phím khác nếu là KHÔNG.");
+                        " 1. Nhấn phím '1' nếu là CÓ.\n" +
+                        " 2. Nhấn phím khác nếu là KHÔNG.");
                 String chooseYesNo = SCANNER.nextLine();
 
                 if (chooseYesNo.equals("1")) {
@@ -125,7 +125,7 @@ public class CustomerService implements ICustomerService {
                                 customer.setGender(MenuUtil.getGender());
                                 break;
                             case 4:
-                                System.out.print("Nhập số CMND khách hàng: ");
+                                System.out.print("Nhập số CMND/CCCD khách hàng: ");
                                 customer.setIdCard(RegexExceptionUtil.getIdCard());
                                 break;
                             case 5:

@@ -1,7 +1,9 @@
 package case_study.controller;
 
 import case_study.service.IBookingService;
+import case_study.service.IContractService;
 import case_study.service.impl.BookingService;
+import case_study.service.impl.ContractService;
 
 import java.util.Scanner;
 
@@ -9,6 +11,7 @@ public class BookingController {
     public void menuBookingManagement() {
         Scanner scanner = new Scanner(System.in);
         IBookingService iBookingService = new BookingService();
+        IContractService iContractService = new ContractService();
 
         do {
             System.out.println("\nQUẢN LÝ ĐẶT CHỖ:\n" +
@@ -34,13 +37,13 @@ public class BookingController {
                     iBookingService.display();
                     break;
                 case 3:
-                    iBookingService.addContract();
+                    iContractService.add();
                     break;
                 case 4:
-                    iBookingService.displayContract();
+                    iContractService.display();
                     break;
                 case 5:
-                    iBookingService.editContract();
+                    iContractService.edit();
                     break;
                 case 6:
                     return;

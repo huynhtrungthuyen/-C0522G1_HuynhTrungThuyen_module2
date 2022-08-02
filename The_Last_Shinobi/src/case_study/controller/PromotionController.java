@@ -1,11 +1,14 @@
 package case_study.controller;
 
+import case_study.service.IPromotionService;
+import case_study.service.impl.PromotionService;
+
 import java.util.Scanner;
 
 public class PromotionController {
-    private final Scanner scanner = new Scanner(System.in);
-
     public void menuPromotionManagement() {
+        Scanner scanner = new Scanner(System.in);
+        IPromotionService iPromotionService = new PromotionService();
         do {
             System.out.println("QUẢN LÝ KHUYẾN MÃI\n" +
                     "1. Hiển thị danh sách khách hàng sử dụng dịch vụ.\n" +
@@ -16,13 +19,15 @@ public class PromotionController {
                 System.out.print("Mời bạn nhập lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                e.getStackTrace();
             }
 
             switch (choose) {
                 case 1:
+                    iPromotionService.displayUseService();
                     break;
                 case 2:
+                    iPromotionService.displayGetVoucher();
                     break;
                 case 3:
                     return;

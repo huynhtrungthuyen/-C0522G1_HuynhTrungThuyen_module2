@@ -16,28 +16,16 @@ public class BookingService implements IBookingService {
 
     @Override
     public void add() {
-        Set<Booking> bookingList = ReadWriteBookingFileUtil.readBookingFile(Link.PATH_BOOKING.getPath());
+        TreeSet<Booking> bookingList = ReadWriteBookingFileUtil.readBookingFile(Link.PATH_BOOKING.getPath());
 
-        System.out.print("\nNhập mã đặt chỗ: ");
         String bookingId;
-        while (true) {
-            try {
-                bookingId = SCANNER.nextLine();
-                if (!bookingId.matches("^B\\d{4}$")) {
-                    throw new IdFormatException("Mã đặt chỗ phải đúng định dạng: BXXXX, với XXXX là các số từ 0-9, vui lòng nhập lại!");
-                }
-
-                for (Booking booking : bookingList) {
-                    if (bookingId.equals(booking.getBookingId())) {
-                        throw new DuplicateIdException("Mã đặt chỗ đã tồn tại, vui lòng nhập lại!");
-                    }
-                }
-
-                break;
-            } catch (IdFormatException | DuplicateIdException e) {
-                System.out.println(e.getMessage());
-            }
+        if (bookingList.isEmpty()) {
+            bookingId = "BK-1";
+        } else {
+            String[] arr = bookingList.last().getBookingId().split("-");
+            bookingId = "BK-" + (Integer.parseInt(arr[1]) + 1);
         }
+        System.out.println("\nMã đặt chỗ: " + bookingId);
 
         System.out.print("Nhập ngày bắt đầu: ");
         String startDay;
@@ -73,80 +61,57 @@ public class BookingService implements IBookingService {
             }
         }
 
-        new CustomerService().display();
-        List<Customer> customerList = ReadWriteCustomerFileUtil.readCustomerFile(Link.PATH_CUSTOMER.getPath());
-        System.out.print("Nhập mã khách hàng: ");
-        String customerId;
-        boolean isExistCustomerId = false;
-        do {
-            customerId = SCANNER.nextLine();
-            for (Customer customer : customerList) {
-                if (customerId.equals(customer.getId())) {
-                    isExistCustomerId = true;
-                    break;
-                }
-            }
+        String customerId = BookingInfoUtil.getCustomerId();
 
-            if (!isExistCustomerId) {
-                System.out.println("Mã khách hàng khồng tồn tại, vui lòng nhập lại!");
-            }
-        } while (!isExistCustomerId);
+        String serviceId = BookingInfoUtil.getServiceIdBooking();
 
-        new FacilityService().display();
-        Map<Facility, Integer> villaList = ReadWriteFacilityFileUtil.readFacilityFile(Link.PATH_VILLA.getPath());
-        Map<Facility, Integer> houseList = ReadWriteFacilityFileUtil.readFacilityFile(Link.PATH_HOUSE.getPath());
-        Map<Facility, Integer> roomList = ReadWriteFacilityFileUtil.readFacilityFile(Link.PATH_ROOM.getPath());
-
-        System.out.print("Nhập mã dịch vụ: ");
-        String serviceId;
         String serviceName = null;
-        boolean isExistServiceId = false;
-        do {
-            serviceId = SCANNER.nextLine();
-
-            for (Facility villa : villaList.keySet()) {
-                if (serviceId.equals(villa.getServiceId())) {
-                    serviceName = villa.getServiceName();
-                    villaList.put(villa, villaList.get(villa) + 1);
-                    ReadWriteFacilityFileUtil.writeFacilityFile(Link.PATH_VILLA.getPath(), villaList);
-                    isExistServiceId = true;
-                    break;
-                }
-            }
-
-            for (Facility house : houseList.keySet()) {
-                if (serviceId.equals(house.getServiceId())) {
-                    serviceName = house.getServiceName();
-                    houseList.put(house, houseList.get(house) + 1);
-                    ReadWriteFacilityFileUtil.writeFacilityFile(Link.PATH_HOUSE.getPath(), houseList);
-                    isExistServiceId = true;
-                    break;
-                }
-            }
-
-            for (Facility room : roomList.keySet()) {
-                if (serviceId.equals(room.getServiceId())) {
-                    serviceName = room.getServiceName();
-                    roomList.put(room, roomList.get(room) + 1);
-                    ReadWriteFacilityFileUtil.writeFacilityFile(Link.PATH_ROOM.getPath(), roomList);
-                    isExistServiceId = true;
-                    break;
-                }
-            }
-
-            if (!isExistServiceId) {
-                System.out.println("Mã dịch vụ khồng tồn tại, vui lòng nhập lại!");
-            }
-        } while (!isExistServiceId);
+        if (serviceId.contains("VL")) {
+            serviceName = "Villa";
+        } else if (serviceId.contains("HO")) {
+            serviceName = "House";
+        } else {
+            serviceName = "Room";
+        }
 
         bookingList.add(new Booking(bookingId, startDay, endDay, customerId, serviceId, serviceName));
         ReadWriteBookingFileUtil.writeBookingFile(Link.PATH_BOOKING.getPath(), bookingList);
-        System.out.println("Thêm mới thành công!");
+        System.out.println("Thêm mới đặt chỗ thành công!");
+
+        if (serviceId.contains("VL") || serviceId.contains("HO")) {
+            System.out.println("\nĐối với dịch vụ Villa và House, khách hàng cần phải làm hợp đồng thuê!");
+            Queue<Contract> contractList = ReadWriteContractFileUtil.readContractFile(Link.PATH_CONTRACT.getPath());
+
+            String numberContract;
+            numberContract = "CT-" + (contractList.size() + 1);
+            System.out.println("Số hợp đồng: " + numberContract);
+
+            System.out.println("Mã đặt chỗ: " + bookingId);
+
+            System.out.print("Nhập số tiền đặt cọc (VNĐ): ");
+            int depositMoney = RegexExceptionUtil.getNumberGreaterThan0();
+
+            System.out.print("Nhập tổng số tiền thanh toán (VNĐ): ");
+            int sumMoney = 0;
+            while (sumMoney <= depositMoney) {
+                sumMoney = RegexExceptionUtil.getNumberGreaterThan0();
+
+                if (sumMoney <= depositMoney) {
+                    System.out.println("Số tiền tổng phải lớn hơn số tiền cọc trước, vui lòng nhập lại!");
+                }
+            }
+
+            System.out.println("Mã khách hàng: " + customerId);
+
+            contractList.add(new Contract(numberContract, bookingId, depositMoney, sumMoney, customerId));
+            ReadWriteContractFileUtil.writeContractFile(Link.PATH_CONTRACT.getPath(), contractList);
+            System.out.println("Thêm mới hợp đồng thành công!");
+        }
     }
 
     @Override
     public void display() {
-        Set<Booking> bookingList = ReadWriteBookingFileUtil.readBookingFile(Link.PATH_BOOKING.getPath());
+        TreeSet<Booking> bookingList = ReadWriteBookingFileUtil.readBookingFile(Link.PATH_BOOKING.getPath());
         List<Booking> bookings = new ArrayList<>();
         bookings.addAll(bookingList);
         DateComparatorUtil dateComparatorUtil = new DateComparatorUtil();
@@ -155,17 +120,5 @@ public class BookingService implements IBookingService {
         for (Booking booking : bookings) {
             System.out.println(booking);
         }
-    }
-
-    @Override
-    public void addContract() {
-    }
-
-    @Override
-    public void displayContract() {
-    }
-
-    @Override
-    public void editContract() {
     }
 }
