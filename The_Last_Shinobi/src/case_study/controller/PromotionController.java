@@ -10,7 +10,7 @@ public class PromotionController {
         Scanner scanner = new Scanner(System.in);
         IPromotionService iPromotionService = new PromotionService();
         do {
-            System.out.println("QUẢN LÝ KHUYẾN MÃI\n" +
+            System.out.println("\nQUẢN LÝ KHUYẾN MÃI\n" +
                     "1. Hiển thị danh sách khách hàng sử dụng dịch vụ.\n" +
                     "2. Hiển thị danh sách khách hàng nhận được voucher.\n" +
                     "3. Trở về MENU chính.");

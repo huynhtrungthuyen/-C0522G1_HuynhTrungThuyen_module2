@@ -64,7 +64,7 @@ public class PromotionService implements IPromotionService {
         if (customerIdList.isEmpty()) {
             System.out.println("Không tìm thấy khách hàng sử dụng dịch vụ theo năm (trong năm " + year + "): ");
         } else {
-            System.out.println("Danh sách khách hàng đã sử dụng dịch vụ theo năm (trong năm " + year + "): ");
+            System.out.println("\nDanh sách khách hàng đã sử dụng dịch vụ theo năm (trong năm " + year + "): ");
             for (Customer customer : customerList) {
                 for (String customerId : customerIdList) {
                     if (customer.getId().equals(customerId)) {

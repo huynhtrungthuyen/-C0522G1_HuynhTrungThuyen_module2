@@ -154,7 +154,6 @@ public class RegexExceptionUtil {
         while (true) {
             try {
                 email = SCANNER.nextLine();
-//                if (!email.matches("^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$")) {
                 if (!email.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]{2,}(\\.[A-Za-z0-9]{2,}){1,2}$")) {
                     throw new TextFormatException("Sai định dạng email, vui lòng nhập lại!");
                 }
